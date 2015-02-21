@@ -14,7 +14,7 @@ public class SpaceLeapGame extends Game {
 	public final int VIEWPORT_WIDTH = 640;
 	public final int VIEWPORT_HEIGHT = 480;
 	
-	public final String controlMode = "KEYBOARD";
+	public final String controlMode = "LEAP";
 
 	@Override
 	//Handles all the creation of objects, classes and other stuff in the game
