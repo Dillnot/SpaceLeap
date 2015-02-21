@@ -139,7 +139,20 @@ public class GameScreen implements Screen {
 			}
 		}
 
+			direction = l.direction;
+		}
+
 		player.setX(direction);
+	}
+	
+	private void checkCollision(){
+		
+		for (Alien[] x:aliens){
+			for (Alien y :x){
+				if(y.getPosition() == player.) 
+			}
+		}
+		
 	}
 
 	/*

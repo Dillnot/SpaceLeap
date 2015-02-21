@@ -58,6 +58,13 @@ public class Alien {
 
 		this.me.setPosition(x, y);
 	}
+	/**
+	 * @return postion as an array form [x,y]
+	 */
+	public int[] getPosition(){
+		int[] p = {x,y};
+		return p;
+	}
 
 	/**
 	 * Moves alien along row
