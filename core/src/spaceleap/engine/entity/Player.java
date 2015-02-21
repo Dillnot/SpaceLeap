@@ -103,4 +103,10 @@ public class Player {
 	 * Draws the player
 	 */
 	public void draw(Batch b) { this.player.draw(b); }
+	
+	/**
+	 * Returns the players bullet object
+	 * @return
+	 */
+	public Bullet getBullet() { return this.bullet; }
 }
