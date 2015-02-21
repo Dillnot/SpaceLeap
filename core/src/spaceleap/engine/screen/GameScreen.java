@@ -30,12 +30,12 @@ public class GameScreen implements Screen {
 	private Player player;
 	private String controlMode;
 	Alien[][] aliens;
-	
+
 	private Controller c = new Controller();
 	private LeapListener l = new LeapListener();
-	
+
 	private short direction = 0;
-	 
+
 	/**
 	 * 
 	 */
@@ -45,31 +45,33 @@ public class GameScreen implements Screen {
 		batch = new SpriteBatch();
 		img = new Texture("Player.png");
 		player = new Player(game.VIEWPORT_WIDTH / 2);
-		
+
 		aliens = new Alien[5][10];
-		
-		int posX = 10;
-		int posY = 300;
-		
-		//Create new Array of Aliens :)
-		for (int x = 0; x < 5; ++x)
-		{
-			for (int y = 0; y < 10; ++y)
-			{
+
+		int posX = 50;
+		int posY = 400;
+
+		// Create new Array of Aliens :)
+		for (int x = 0; x < 5; ++x) {
+			for (int y = 0; y < 10; ++y) {
 				int realX = posX + 15;
-				
-				if (y%2 == 0) { aliens[x][y] = new Alien(AlienType.ORANGE, realX, posY); }
-				else { aliens[x][y] = new Alien(AlienType.PURPLE, realX, posY); }
-				posX += 32+15;
-			}	
-			posX = 10;
+
+				if (y % 2 == 0) {
+					aliens[x][y] = new Alien(AlienType.ORANGE, realX, posY);
+				} else {
+					aliens[x][y] = new Alien(AlienType.PURPLE, realX, posY);
+				}
+				posX += 32 + 15;
+			}
+			posX = 50;
 			posY -= 35;
-		}	
+		}
 		c.addListener(l);
 	}
 
-	
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.Screen#show()
 	 */
 	@Override
@@ -78,7 +80,9 @@ public class GameScreen implements Screen {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.Screen#render(float)
 	 */
 	@Override
@@ -90,51 +94,59 @@ public class GameScreen implements Screen {
 	private void draw() {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		batch.begin();
 		player.draw(batch);
-		
-		for(int x = 0; x < 5; ++x)
-		{
-			for(int y = 0; y < 10; ++y)
-			{
-				aliens[x][y].draw(batch);
-			}	
-		}
-		
-		batch.end();
-		
-		
-		
-	}
 
+		for (int x = 0; x < 5; ++x) {
+			for (int y = 0; y < 10; ++y) {
+				aliens[x][y].draw(batch);
+			}
+		}
+
+		batch.end();
+
+	}
 
 	private void update() {
-		
+
 		if (controlMode == "KEYBOARD") {
-		
-		 if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-	            if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
-	                direction = -2;
-	            else
-	                direction = -1;
-	        }
-		 else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-	            if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
-	                direction = 2;
-	            else
-	                direction = 1;
-	        }
-		 else { direction = 0; }
+
+			if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+				if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
+					direction = -2;
+				else
+					direction = -1;
+			} else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+				if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
+					direction = 2;
+				else
+					direction = 1;
+			} else {
+				direction = 0;
+			}
 		}
-	        
-		else { direction = l.direction; }
-		
+
+		else {
+			direction = l.direction;
+		}
+
 		player.setX(direction);
 	}
+	
+	private void checkCollision(){
+		
+		for (Alien[] x:aliens){
+			for (Alien y :x){
+				if(y.getPosition() == player.) 
+			}
+		}
+		
+	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.Screen#resize(int, int)
 	 */
 	@Override
@@ -143,7 +155,9 @@ public class GameScreen implements Screen {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.Screen#pause()
 	 */
 	@Override
@@ -152,7 +166,9 @@ public class GameScreen implements Screen {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.Screen#resume()
 	 */
 	@Override
@@ -161,7 +177,9 @@ public class GameScreen implements Screen {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.Screen#hide()
 	 */
 	@Override
@@ -170,7 +188,9 @@ public class GameScreen implements Screen {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.Screen#dispose()
 	 */
 	@Override
