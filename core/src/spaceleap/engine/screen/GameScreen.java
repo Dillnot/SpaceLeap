@@ -3,7 +3,11 @@
  */
 package spaceleap.engine.screen;
 
+import java.util.List;
+
 import sapceleap.game.SpaceLeapGame;
+import spaceleap.engine.enemy.Alien;
+import spaceleap.engine.enemy.Alien.AlienType;
 import spaceleap.engine.input.LeapListener;
 
 import com.badlogic.gdx.Gdx;
@@ -25,6 +29,7 @@ public class GameScreen implements Screen {
 	private SpriteBatch batch;
 	private Texture img;
 	private Sprite player;
+	Alien[][] aliens;
 	
 	private Controller c = new Controller();
 	private LeapListener l = new LeapListener();
@@ -37,6 +42,27 @@ public class GameScreen implements Screen {
 		batch = new SpriteBatch();
 		img = new Texture("Player.png");
 		player = new Sprite(img);
+		
+		aliens = new Alien[5][10];
+		
+		int posX = 10;
+		int posY = 300;
+		
+		//Create new Array of Aliens :)
+		for (int x = 0; x < 5; ++x)
+		{
+			for (int y = 0; y < 10; ++y)
+			{
+				int realX = posX + 5;
+				
+				if (y%2 == 0) { aliens[x][y] = new Alien(AlienType.ORANGE, realX, posY); }
+				else { { aliens[x][y] = new Alien(AlienType.PURPLE, realX, posY); }
+				posX += 32;
+				}
+			}	
+			posX = 10;
+			posY -= 35;
+		}
 		
 		player.setPosition(game.VIEWPORT_WIDTH / 2, game.VIEWPORT_HEIGHT / 2);		
 		c.addListener(l);
@@ -59,7 +85,6 @@ public class GameScreen implements Screen {
 	public void render(float delta) {
 		update();
 		draw();
-
 	}
 
 	private void draw() {
@@ -68,6 +93,15 @@ public class GameScreen implements Screen {
 		
 		batch.begin();
 		player.draw(batch);
+		
+		for(int x = 0; x < 5; ++x)
+		{
+			for(int y = 0; y < 10; ++y)
+			{
+				aliens[x][y].draw(batch);
+			}	
+		}
+		
 		batch.end();
 		
 		
