@@ -139,9 +139,6 @@ public class GameScreen implements Screen {
 			}
 		}
 
-			direction = l.direction;
-		}
-
 		player.setX(direction);
 	}
 	
