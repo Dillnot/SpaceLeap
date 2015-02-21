@@ -53,12 +53,11 @@ public class GameScreen implements Screen {
 		{
 			for (int y = 0; y < 10; ++y)
 			{
-				int realX = posX + 5;
+				int realX = posX + 15;
 				
 				if (y%2 == 0) { aliens[x][y] = new Alien(AlienType.ORANGE, realX, posY); }
-				else { { aliens[x][y] = new Alien(AlienType.PURPLE, realX, posY); }
-				posX += 32;
-				}
+				else { aliens[x][y] = new Alien(AlienType.PURPLE, realX, posY); }
+				posX += 32+15;
 			}	
 			posX = 10;
 			posY -= 35;
