@@ -1,6 +1,3 @@
-/**
- * 
- */
 package spaceleap.engine.screen;
 
 import sapceleap.game.SpaceLeapGame;
@@ -94,7 +91,7 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		if (killcount == 50) { game.setScreen(new GameOverScreen(game)); dispose(); } 
+		if (killcount == 50) { game.setScreen(new GameOverScreen(game));} 
 
 		//Start draw and draw player
 		batch.begin();
@@ -165,6 +162,8 @@ public class GameScreen implements Screen {
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 				player.fire();
 			}
+            
+            if (Gdx.input.isKeyJustPressed(Input.Keys.BACKSPACE)) { killcount = 49;  }
 		}
 
 		else {
@@ -192,7 +191,8 @@ public class GameScreen implements Screen {
 						{
 					    	y.kill();
 						    player.updateScore(y.getScore());
-						    killcount++;
+						    killcount += 1;
+						    System.out.println(killcount);
 						    return;
 						}
 					}
