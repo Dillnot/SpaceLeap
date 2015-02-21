@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  * A basic Alien Entity in SpaceLeap
  * 
  * @author Ewan
+ * 
  *
  */
 public class Alien {
@@ -32,6 +33,7 @@ public class Alien {
 	private int x = 0;
 	private int y = 0;
 	private boolean isDead = false;
+	private static boolean goLeft = false;
 	private int score = 50;
 
 	/**
@@ -70,15 +72,23 @@ public class Alien {
 	 * Moves alien along row
 	 */
 	public void moveX() {
-		x += 2;
+		if(goLeft){
+			x -=2;
+		}else{
+			x += 2;
+		}
 		this.me.setPosition(x, y);
+	}
+	
+	public void switchGoLeft(){
+		goLeft = !goLeft;
 	}
 
 	/**
 	 * Moves alien down column
 	 */
 	public void moveY() {
-		y += 5;
+		y -= 5;
 		this.me.setPosition(x, y);
 	}
 
