@@ -22,8 +22,8 @@ public class Alien {
 	};
 	
 	//Private fixed textures for the aliens
-	private static final Texture orangeTex = new Texture("Alien1.png");
-	private static final Texture purpleTex = new Texture("Alien2.png");
+	private static final Texture orangeTex = new Texture("alien1.png");
+	private static final Texture purpleTex = new Texture("alien2.png");
 	private static final Texture deadTex = new Texture("dead.png");
 	
 	//Local properties
@@ -47,17 +47,19 @@ public class Alien {
 		
 		this.x = x;
 		this.y = y;
+		
+		this.me.setPosition(x, y);
 	}
 	
 	/**
 	 * Moves alien along row
 	 */
-	public void moveX() { x += 2; }
+	public void moveX() { x += 2; this.me.setPosition(x, y); }
 	
 	/**
 	 * Moves alien down column
 	 */
-	public void moveY() { y += 5; }
+	public void moveY() { y += 5; this.me.setPosition(x, y); }
 	
 	/**
 	 * Is Alien dead?

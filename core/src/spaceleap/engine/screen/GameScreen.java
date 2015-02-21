@@ -29,6 +29,7 @@ public class GameScreen implements Screen {
 	private SpriteBatch batch;
 	private Texture img;
 	private Sprite player;
+	private String controlMode;
 	Alien[][] aliens;
 	
 	private Controller c = new Controller();
@@ -39,6 +40,7 @@ public class GameScreen implements Screen {
 	 */
 	public GameScreen(SpaceLeapGame game) {
 		this.game = game;
+		this.controlMode = game.controlMode;
 		batch = new SpriteBatch();
 		img = new Texture("Player.png");
 		player = new Sprite(img);
@@ -53,12 +55,11 @@ public class GameScreen implements Screen {
 		{
 			for (int y = 0; y < 10; ++y)
 			{
-				int realX = posX + 5;
+				int realX = posX + 15;
 				
 				if (y%2 == 0) { aliens[x][y] = new Alien(AlienType.ORANGE, realX, posY); }
-				else { { aliens[x][y] = new Alien(AlienType.PURPLE, realX, posY); }
-				posX += 32;
-				}
+				else { aliens[x][y] = new Alien(AlienType.PURPLE, realX, posY); }
+				posX += 32+15;
 			}	
 			posX = 10;
 			posY -= 35;
@@ -110,19 +111,23 @@ public class GameScreen implements Screen {
 
 
 	private void update() {
+		
+		if (controlMode == "KEYBOARD") {
+		
 		 if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
 	            if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
-	                player.translateX(-1f);
+	                l.direction = -2;
 	            else
-	                player.translateX(-10.0f);
+	                l.direction = -1;
 	        }
-	        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+		 else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
 	            if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
-	                player.translateX(1f);
+	                l.direction = 2;
 	            else
-	                player.translateX(10.0f);
+	                l.direction = 1;
 	        }
-	        
+		 else { l.direction = 0; }
+		}
 	        
 	     switch (l.direction)
 	     {
