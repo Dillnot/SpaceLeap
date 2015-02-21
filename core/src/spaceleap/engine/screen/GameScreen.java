@@ -95,7 +95,23 @@ public class GameScreen implements Screen {
 
 		batch.begin();
 		player.draw(batch);
+		
+		if (aliens[0][9].getPosition()[0] > 600 || aliens[0][0].getPosition()[0] < 0){
+			aliens[0][0].switchGoLeft();
+			for (int x = 0; x < 5; ++x) {
+				for (int y = 0; y < 10; ++y) {
+					aliens[x][y].moveY();
+				}
+			}
+			
+		}
 
+		for (int x = 0; x < 5; ++x) {
+			for (int y = 0; y < 10; ++y) {
+				aliens[x][y].moveX();
+			}
+		}
+		
 		for (int x = 0; x < 5; ++x) {
 			for (int y = 0; y < 10; ++y) {
 				aliens[x][y].draw(batch);
