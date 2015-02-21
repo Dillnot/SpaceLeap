@@ -90,6 +90,7 @@ public class GameScreen implements Screen {
 	public void render(float delta) {
 		update();
 		draw();
+		checkCollision();
 	}
 
 	private void draw() {
@@ -143,20 +144,22 @@ public class GameScreen implements Screen {
 			}
 		}
 
-			direction = l.direction;
-		}
-
 		player.setX(direction);
 	}
-	
-	private void checkCollision(){
-		
-		for (Alien[] x:aliens){
-			for (Alien y :x){
-				if(y.getPosition() == player.) 
+
+	private void checkCollision() {
+
+		if (player.getBullet() != null) {
+			for (Alien[] x : aliens) {
+				for (Alien y : x) {
+					if (!(y.isDead()) && y.getPosition() == player.getBullet().getPosition()) {
+						y.kill();
+						player.updateScore(y.getScore());
+					}
+				}
 			}
 		}
-		
+
 	}
 
 	/*
