@@ -1,6 +1,8 @@
 package sapceleap.game;
 
+import spaceleap.engine.screen.GameScreen;
 import spaceleap.engine.screen.MainMenuScreen;
+import spaceleap.engine.screen.OptionsScreen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -13,15 +15,26 @@ public class SpaceLeapGame extends Game {
 
 	public final int VIEWPORT_WIDTH = 640;
 	public final int VIEWPORT_HEIGHT = 480;
-
-	public final String controlMode = "LEAP";
+	
+	public String INPUT_MODE = "KEYBOARD";
+	
+	//Screens, so the data is kept to move between  :)
+	public MainMenuScreen mms;
+	public OptionsScreen os;
+	public  GameScreen gs;
+	
 
 	@Override
 	// Handles all the creation of objects, classes and other stuff in the game
 	public void create() {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
-		this.setScreen(new MainMenuScreen(this));
+		
+		mms = new MainMenuScreen(this);
+		os = new OptionsScreen(this);
+		gs = new GameScreen(this);
+		
+		this.setScreen(mms);
 	}
 
 	// Calls update and render one after another

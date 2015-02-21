@@ -14,7 +14,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.leapmotion.leap.Controller;
 
@@ -28,21 +27,18 @@ public class GameScreen implements Screen {
 	private SpriteBatch batch;
 	private Texture img;
 	private Player player;
-	private String controlMode;
 	Alien[][] aliens;
 
 	private Controller c = new Controller();
 	private LeapListener l = new LeapListener();
 
 	private short direction = 0;
-	private boolean fire = false;
 
 	/**
 	 * 
 	 */
 	public GameScreen(SpaceLeapGame game) {
 		this.game = game;
-		this.controlMode = game.controlMode;
 		batch = new SpriteBatch();
 		img = new Texture("Player.png");
 		player = new Player(game.VIEWPORT_WIDTH / 2);
@@ -113,7 +109,7 @@ public class GameScreen implements Screen {
 	private void update() {
 
 		// Handles Input from Keyboard
-		if (controlMode == "KEYBOARD") {
+		if (game.INPUT_MODE == "KEYBOARD") {
 
 			// Check user input
 			if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
