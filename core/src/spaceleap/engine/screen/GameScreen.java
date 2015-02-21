@@ -4,6 +4,7 @@
 package spaceleap.engine.screen;
 
 import sapceleap.game.SpaceLeapGame;
+import spaceleap.engine.input.LeapListener;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.leapmotion.leap.Controller;
 
 /**
  * @author dylan
@@ -23,6 +25,9 @@ public class GameScreen implements Screen {
 	private SpriteBatch batch;
 	private Texture img;
 	private Sprite player;
+	
+	private Controller c = new Controller();
+	private LeapListener l = new LeapListener();
 
 	/**
 	 * 
@@ -30,10 +35,11 @@ public class GameScreen implements Screen {
 	public GameScreen(SpaceLeapGame game) {
 		this.game = game;
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		img = new Texture("Player.png");
 		player = new Sprite(img);
 		
-		player.setPosition(250, 250);
+		player.setPosition(250, 250);		
+		c.addListener(l);
 	}
 
 	
@@ -79,6 +85,8 @@ public class GameScreen implements Screen {
 	            else
 	                player.translateX(10.0f);
 	        }
+	        
+	     player.setX(l.position.getX());
 	}
 
 
