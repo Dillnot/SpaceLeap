@@ -33,6 +33,7 @@ public class GameScreen implements Screen {
 	private LeapListener l = new LeapListener();
 
 	private short direction = 0;
+	private short killcount = 0;
 
 	/**
 	 * 
@@ -92,24 +93,41 @@ public class GameScreen implements Screen {
 	private void draw() {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		if (killcount == 50) { game.setScreen(new GameOverScreen(game)); dispose(); } 
 
+		//Start draw and draw player
 		batch.begin();
 		player.draw(batch);
 
+		//Draw all the aliens
 		for (int x = 0; x < 5; ++x) {
 			for (int y = 0; y < 10; ++y) {
 				aliens[x][y].draw(batch);
 			}
 		}
+		
+		//Add Bullet, if it exists
+		if (player.getBullet() != null) 
+		{
+			//Check if bullet is off the screen, if so we just remove it by added 0 to the score, else draw it
+			if(!player.getBullet().move()) 
+			{
+				player.updateScore(0);
+			}
+			else {
+				player.getBullet().draw(batch);
+			}
+		} 
 
 		batch.end();
 
 	}
 
 	private void update() {
-
+	
 		// Handles Input from Keyboard
-		if (game.INPUT_MODE == "KEYBOARD") {
+		if (game.INPUT_MODE.compareTo("KEYBOARD") == 0) {
 
 			// Check user input
 			if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
@@ -127,7 +145,7 @@ public class GameScreen implements Screen {
 			}
 
 			// Check for fire
-			if (Gdx.input.isButtonPressed(Input.Keys.SPACE)) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 				player.fire();
 			}
 		}
@@ -148,14 +166,22 @@ public class GameScreen implements Screen {
 		if (player.getBullet() != null) {
 			for (Alien[] x : aliens) {
 				for (Alien y : x) {
-					if (!(y.isDead()) && y.getPosition() == player.getBullet().getPosition()) {
-						y.kill();
-						player.updateScore(y.getScore());
+					if (!(y.isDead()))
+					{	
+						int bx = player.getBullet().getPosition()[0];
+					    int by = player.getBullet().getPosition()[1];
+					    
+					    if ((bx >= y.getPosition()[0] && bx <= y.getPosition()[0] + 32) && (by >= y.getPosition()[1] && by <= y.getPosition()[1] + 32))
+						{
+					    	y.kill();
+						    player.updateScore(y.getScore());
+						    killcount++;
+						    return;
+						}
 					}
 				}
 			}
 		}
-
 	}
 
 	/*

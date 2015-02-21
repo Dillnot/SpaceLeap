@@ -93,7 +93,7 @@ public class Player {
 	 */
 	public void fire() {
 		if (bullet == null) {
-			bullet = new Bullet(x,y);
+			bullet = new Bullet(x + 16,y);
 		}
 	}
 

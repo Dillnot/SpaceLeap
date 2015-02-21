@@ -53,7 +53,6 @@ public class SpaceLeapGame extends Game {
 	public void dispose() {
 		
 		saveOptions();
-		
 		batch.dispose();
 		font.dispose();
 	}

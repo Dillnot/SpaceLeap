@@ -1,6 +1,7 @@
 package spaceleap.engine.entity;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Bullet {
@@ -8,14 +9,14 @@ public class Bullet {
 	//Local properties
 	private int x;
 	private int y;
-	private Sprite me;
-	private final int moveSpeed = 1;
+	private static final Sprite me = new Sprite(new Texture("shot.png"));
+	private final int moveSpeed = 3;
 	
 	
 	public Bullet(int x, int y){
 		this.x = x;
 		this.y = y;
-		this.me = new Sprite(new Texture("shot.png"));
+		me.setPosition(x,y);
 	}
 	
 	/**
@@ -26,8 +27,13 @@ public class Bullet {
 		return p;
 	}
 	
-	public void move(){
+	public boolean move(){
 		y += moveSpeed;
+		
+		if (y > 480) return false;
+		else {me.setY(y); return true; }
 	}
 	
+	//Draws Bullet to screen
+	public void draw(Batch b) { me.draw(b); }
 }
