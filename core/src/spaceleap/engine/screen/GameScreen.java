@@ -111,10 +111,10 @@ public class GameScreen implements Screen {
 
 	private void update() {
 
-		//Handles Input from Keyboard
+		// Handles Input from Keyboard
 		if (controlMode == "KEYBOARD") {
 
-		//Check user input
+			// Check user input
 			if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 				if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
 					direction = -2;
@@ -128,16 +128,21 @@ public class GameScreen implements Screen {
 			} else {
 				direction = 0;
 			}
-		 
-		 //Check for fire
-		 if (Gdx.input.isButtonPressed(Input.Keys.SPACE)){ player.fire(); }
+
+			// Check for fire
+			if (Gdx.input.isButtonPressed(Input.Keys.SPACE)) {
+				player.fire();
+			}
 		}
-	        
-		else { direction = l.direction; 
-		//Fire player bullet and update position
-		if (l.fire) { player.fire(); } 
+
+		else {
+			direction = l.direction;
+			// Fire player bullet and update position
+			if (l.fire) {
+				player.fire();
+			}
 		}
-		
+
 			direction = l.direction;
 		}
 
