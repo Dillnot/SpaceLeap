@@ -35,6 +35,7 @@ public class GameScreen implements Screen {
 	private LeapListener l = new LeapListener();
 
 	private short direction = 0;
+	private boolean fire = false;
 
 	/**
 	 * 
@@ -48,7 +49,7 @@ public class GameScreen implements Screen {
 
 		aliens = new Alien[5][10];
 
-		int posX = 50;
+		int posX = (game.VIEWPORT_WIDTH - 470) / 2;
 		int posY = 400;
 
 		// Create new Array of Aliens :)
@@ -63,7 +64,7 @@ public class GameScreen implements Screen {
 				}
 				posX += 32 + 15;
 			}
-			posX = 50;
+			posX = (game.VIEWPORT_WIDTH - 470) / 2;
 			posY -= 35;
 		}
 		c.addListener(l);
@@ -110,8 +111,10 @@ public class GameScreen implements Screen {
 
 	private void update() {
 
+		//Handles Input from Keyboard
 		if (controlMode == "KEYBOARD") {
 
+		//Check user input
 			if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
 				if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
 					direction = -2;
@@ -125,9 +128,16 @@ public class GameScreen implements Screen {
 			} else {
 				direction = 0;
 			}
+		 
+		 //Check for fire
+		 if (Gdx.input.isButtonPressed(Input.Keys.SPACE)){ player.fire(); }
 		}
-
-		else {
+	        
+		else { direction = l.direction; 
+		//Fire player bullet and update position
+		if (l.fire) { player.fire(); } 
+		}
+		
 			direction = l.direction;
 		}
 

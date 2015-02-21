@@ -35,6 +35,7 @@ public class LeapListener extends Listener {
     }
     
     public short direction = 0;
+    public boolean fire = false;
     
     public void onFrame(Controller controller) {
         // Get the most recent frame and report some basic information
@@ -64,9 +65,23 @@ public class LeapListener extends Listener {
         			else { direction = 1;
         			}
         		}
-        		else { direction = 0; }
+        		else { 
+        			direction = 0;
+        		}
         	}
         }
+        
+        
+        //Ands the entire collection of fingers and if they are all hidden we fire!
+        boolean isFire = true;
+        for(Finger finger : frame.fingers())
+        {
+        	isFire = isFire && !finger.isExtended();
+        }
+        if(isFire) { fire = true; }
+        
+        
+        
         //Get hands
         //for(Hand hand : frame.hands()) {
         //    String handType = hand.isLeft() ? "Left hand" : "Right hand";
