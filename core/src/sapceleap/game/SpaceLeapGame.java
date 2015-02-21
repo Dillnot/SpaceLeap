@@ -1,6 +1,5 @@
 package sapceleap.game;
 
-
 import spaceleap.engine.screen.MainMenuScreen;
 
 import com.badlogic.gdx.Game;
@@ -15,7 +14,7 @@ public class SpaceLeapGame extends Game {
 	public final int VIEWPORT_WIDTH = 640;
 	public final int VIEWPORT_HEIGHT = 480;
 	
-	public final String controlMode = "LEAP";
+	public final String controlMode = "KEYBOARD";
 
 	@Override
 	//Handles all the creation of objects, classes and other stuff in the game

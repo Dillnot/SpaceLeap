@@ -3,11 +3,10 @@
  */
 package spaceleap.engine.screen;
 
-import java.util.List;
-
 import sapceleap.game.SpaceLeapGame;
-import spaceleap.engine.enemy.Alien;
-import spaceleap.engine.enemy.Alien.AlienType;
+import spaceleap.engine.entity.Player;
+import spaceleap.engine.entity.enemy.Alien;
+import spaceleap.engine.entity.enemy.Alien.AlienType;
 import spaceleap.engine.input.LeapListener;
 
 import com.badlogic.gdx.Gdx;
@@ -28,12 +27,14 @@ public class GameScreen implements Screen {
 	final SpaceLeapGame game;
 	private SpriteBatch batch;
 	private Texture img;
-	private Sprite player;
+	private Player player;
 	private String controlMode;
 	Alien[][] aliens;
 	
 	private Controller c = new Controller();
 	private LeapListener l = new LeapListener();
+	
+	private short direction = 0;
 	 
 	/**
 	 * 
@@ -43,7 +44,7 @@ public class GameScreen implements Screen {
 		this.controlMode = game.controlMode;
 		batch = new SpriteBatch();
 		img = new Texture("Player.png");
-		player = new Sprite(img);
+		player = new Player(game.VIEWPORT_WIDTH / 2);
 		
 		aliens = new Alien[5][10];
 		
@@ -63,9 +64,7 @@ public class GameScreen implements Screen {
 			}	
 			posX = 10;
 			posY -= 35;
-		}
-		
-		player.setPosition(game.VIEWPORT_WIDTH / 2, game.VIEWPORT_HEIGHT / 2);		
+		}	
 		c.addListener(l);
 	}
 
@@ -116,38 +115,22 @@ public class GameScreen implements Screen {
 		
 		 if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
 	            if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
-	                l.direction = -2;
+	                direction = -2;
 	            else
-	                l.direction = -1;
+	                direction = -1;
 	        }
 		 else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
 	            if(Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
-	                l.direction = 2;
+	                direction = 2;
 	            else
-	                l.direction = 1;
+	                direction = 1;
 	        }
-		 else { l.direction = 0; }
+		 else { direction = 0; }
 		}
 	        
-	     switch (l.direction)
-	     {
-	     case -2:  
-	    	 {
-	    		 if (player.getX() - 6.0f >= 0) player.translateX(-6.0f); break;
-	    	 }
-	     case -1:
-	     {
-	    	 if(player.getX() - 3f >= 0 ) player.translateX(-3f); break;
-	     }
-	     case  1:  
-	    	 {
-	    		 if (player.getX() + 3f <= 640 - 64) player.translateX(3f); break;
-	    	 }
-	     case  2: 
-	    	 {
-	    		 if (player.getX() + 6f <= 640 - 64) player.translateX(6f); break;
-	    	 }
-	     }
+		else { direction = l.direction; }
+		
+		player.setX(direction);
 	}
 
 

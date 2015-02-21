@@ -1,4 +1,4 @@
-package spaceleap.engine.enemy;
+package spaceleap.engine.entity.enemy;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
