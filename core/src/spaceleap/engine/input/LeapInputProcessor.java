@@ -1,82 +1,246 @@
 package spaceleap.engine.input;
 
-import javafx.geometry.Point2D;
-import javafx.scene.input.InputMethodRequests;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Pixmap;
 
-public class LeapInputProcessor implements InputProcessor, InputMethodRequests {
-
-	@Override
-	public Point2D getTextLocation(int offset) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+public class LeapInputProcessor implements Input {
 
 	@Override
-	public int getLocationOffset(int x, int y) {
+	public float getAccelerometerX() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public void cancelLatestCommittedText() {
+	public float getAccelerometerY() {
 		// TODO Auto-generated method stub
-
+		return 0;
 	}
 
 	@Override
-	public String getSelectedText() {
+	public float getAccelerometerZ() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getX(int pointer) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getDeltaX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getDeltaX(int pointer) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getY(int pointer) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getDeltaY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getDeltaY(int pointer) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean isTouched() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean justTouched() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isTouched(int pointer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isButtonPressed(int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isKeyPressed(int key) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isKeyJustPressed(int key) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void getTextInput(TextInputListener listener, String title,
+			String text, String hint) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setOnscreenKeyboardVisible(boolean visible) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void vibrate(int milliseconds) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void vibrate(long[] pattern, int repeat) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void cancelVibrate() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public float getAzimuth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public float getPitch() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public float getRoll() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void getRotationMatrix(float[] matrix) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public long getCurrentEventTime() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setCatchBackKey(boolean catchBack) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isCatchBackKey() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setCatchMenuKey(boolean catchMenu) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setInputProcessor(InputProcessor processor) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public InputProcessor getInputProcessor() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean keyDown(int keycode) {
+	public boolean isPeripheralAvailable(Peripheral peripheral) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean keyUp(int keycode) {
+	public int getRotation() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Orientation getNativeOrientation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setCursorCatched(boolean catched) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isCursorCatched() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean keyTyped(char character) {
+	public void setCursorPosition(int x, int y) {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
 	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+	public void setCursorImage(Pixmap pixmap, int xHotspot, int yHotspot) {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(int amount) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 }
