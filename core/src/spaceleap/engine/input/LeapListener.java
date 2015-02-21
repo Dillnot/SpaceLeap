@@ -34,8 +34,7 @@ public class LeapListener extends Listener {
         System.out.println("Exited");
     }
     
-    public Vector position = new Vector();
-    
+    public short direction = 0;
     
     public void onFrame(Controller controller) {
         // Get the most recent frame and report some basic information
@@ -49,11 +48,23 @@ public class LeapListener extends Listener {
         
         
         if (frame.hands().count() == 0)
-        { System.out.println("No hands..."); }
+        { direction = 0; }
         else {
         	for(Hand hand : frame.hands())
         	{
-        		position = hand.palmPosition();
+        		float pos = hand.palmPosition().getX();
+        		
+        		if (hand.palmPosition().getX() < 0) { 
+        			if (pos < -75) { direction = -2; } 
+        			else { direction = -1;
+        		}
+        		}
+        		else if (hand.palmPosition().getX() > 0) {
+        			if (pos > 75) { direction = 2; } 
+        			else { direction = 1;
+        			}
+        		}
+        		else { direction = 0; }
         	}
         }
         //Get hands

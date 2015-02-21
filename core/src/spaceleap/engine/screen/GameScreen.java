@@ -28,7 +28,7 @@ public class GameScreen implements Screen {
 	
 	private Controller c = new Controller();
 	private LeapListener l = new LeapListener();
-
+	 
 	/**
 	 * 
 	 */
@@ -38,7 +38,7 @@ public class GameScreen implements Screen {
 		img = new Texture("Player.png");
 		player = new Sprite(img);
 		
-		player.setPosition(250, 250);		
+		player.setPosition(game.VIEWPORT_WIDTH / 2, game.VIEWPORT_HEIGHT / 2);		
 		c.addListener(l);
 	}
 
@@ -65,9 +65,12 @@ public class GameScreen implements Screen {
 	private void draw() {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
 		batch.begin();
 		player.draw(batch);
 		batch.end();
+		
+		
 		
 	}
 
@@ -86,7 +89,26 @@ public class GameScreen implements Screen {
 	                player.translateX(10.0f);
 	        }
 	        
-	     player.setX(l.position.getX());
+	        
+	     switch (l.direction)
+	     {
+	     case -2:  
+	    	 {
+	    		 if (player.getX() - 6.0f >= 0) player.translateX(-6.0f); break;
+	    	 }
+	     case -1:
+	     {
+	    	 if(player.getX() - 3f >= 0 ) player.translateX(-3f); break;
+	     }
+	     case  1:  
+	    	 {
+	    		 if (player.getX() + 3f <= 640 - 64) player.translateX(3f); break;
+	    	 }
+	     case  2: 
+	    	 {
+	    		 if (player.getX() + 6f <= 640 - 64) player.translateX(6f); break;
+	    	 }
+	     }
 	}
 
 
