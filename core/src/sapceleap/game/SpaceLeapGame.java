@@ -6,13 +6,14 @@ import spaceleap.engine.screen.MainMenuScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.leapmotion.leap.Controller;
-
 
 public class SpaceLeapGame extends Game {
 	
 	public SpriteBatch batch;
 	public BitmapFont font;
+	
+	public final int VIEWPORT_WIDTH = 640;
+	public final int VIEWPORT_HEIGHT = 480;
 
 	@Override
 	//Handles all the creation of objects, classes and other stuff in the game
