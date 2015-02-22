@@ -39,7 +39,6 @@ public class GameScreen implements Screen {
 	private short killcount = 0;
 
 	private int count = 0;
-	private ArrayList<Bullet> aliensBullets  = new ArrayList<Bullet>();
 
 	/**
 	 * 
@@ -129,6 +128,7 @@ public class GameScreen implements Screen {
 				player.getBullet().draw(batch);
 			}
 		}
+<<<<<<< HEAD
 
 		ArrayList<Bullet> remove = new ArrayList<Bullet>();
 		for (Bullet b : aliensBullets) {
@@ -142,9 +142,12 @@ public class GameScreen implements Screen {
 		for (Bullet b : remove) {
 			aliensBullets.remove(b);
 		}
-
+=======
+		
 		//Drawing the special alien
 		sa.draw(batch);
+>>>>>>> e3788b6a5eba46e304f59f7f3697fa2dea065d1b
+
 		batch.end();
 
 		count += 1;
