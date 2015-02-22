@@ -11,11 +11,18 @@ public class Bullet {
 	private int y;
 	private static final Sprite me = new Sprite(new Texture("shot.png"));
 	private final int moveSpeed = 3;
-	
+	private boolean alien;
 	
 	public Bullet(int x, int y){
 		this.x = x;
 		this.y = y;
+		this.alien = false;
+		me.setPosition(x,y);
+	}
+	public Bullet(int x, int y ,boolean al){
+		this.x = x;
+		this.y = y;
+		this.alien = al;
 		me.setPosition(x,y);
 	}
 	
@@ -28,9 +35,13 @@ public class Bullet {
 	}
 	
 	public boolean move(){
-		y += moveSpeed;
+		if (alien){
+		y -= moveSpeed;
+		} else{
+			y += moveSpeed;
+		}
 		
-		if (y > 480) return false;
+		if (y > 480 || y < 0) return false;
 		else {me.setY(y); return true; }
 	}
 	
