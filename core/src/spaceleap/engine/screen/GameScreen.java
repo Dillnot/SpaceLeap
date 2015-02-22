@@ -1,7 +1,10 @@
 package spaceleap.engine.screen;
 
 
+import java.util.ArrayList;
+
 import sapceleap.game.SpaceLeapGame;
+import spaceleap.engine.entity.Bullet;
 import spaceleap.engine.entity.Player;
 import spaceleap.engine.entity.enemy.Alien;
 import spaceleap.engine.entity.enemy.Alien.AlienType;
@@ -36,7 +39,8 @@ public class GameScreen implements Screen {
 	private short killcount = 0;
 
 	private int count = 0;
-
+	private ArrayList<Bullet> aliensBullets = new ArrayList<Bullet>();
+	
 	/**
 	 * 
 	 */
@@ -122,7 +126,7 @@ public class GameScreen implements Screen {
 			// Check if bullet is off the screen, if so we just remove it by
 			// added 0 to the score, else draw it
 			if (!player.getBullet().move()) {
-				
+				player.updateScore(0);
 			} else {
 				player.getBullet().draw(batch);
 			}
@@ -139,6 +143,7 @@ public class GameScreen implements Screen {
 		}
 		for (Bullet b : remove) {
 			aliensBullets.remove(b);
+		}
 
 		//Drawing the special alien
 		sa.draw(batch);
@@ -203,6 +208,12 @@ public class GameScreen implements Screen {
 						}
 					}
 				}
+			}
+			
+			if ((player.getBullet().getPosition()[0] >= sa.getPosition()[0] && player.getBullet().getPosition()[0] <= sa.getPosition()[0] + 32)&& (player.getBullet().getPosition()[1] >= sa.getPosition()[1] && player.getBullet().getPosition()[1] <= sa.getPosition()[1] + 32))
+			{
+				sa.kill();
+				player.updateScore(sa.getScore());
 			}
 		}
 		
@@ -270,27 +281,19 @@ public class GameScreen implements Screen {
 		}
 
 		// Every 20 draws, we move the aliens a set amount
-		//if (count % 20 == 0) {
-			//System.out.println(count);
+		if (count % 20 == 0) {
 			for (int x = 0; x < 5; ++x) {
 				for (int y = 0; y < 10; ++y) {
 					aliens[x][y].moveX();
 				}
 			}
-		//}
+		}
 		
 		sa.moveX();
 
 	}
 
-	//Resets the position of Aliens in the game
-	//////////////////////////////////////////////////
-		
-	//TODO : MAKE THIS JUST CHANGE THE POSITION OF ALIENS, NOT CREATE A NEW LOT
-	
-	///////////////////////////////////////////////////////
-	
-	
+	//Resets the position of Aliens in the game	
 	private void resetAliens() {
 		int posX = (game.VIEWPORT_WIDTH - 470) / 2;
 		int posY = 400;
