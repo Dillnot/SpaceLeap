@@ -73,9 +73,9 @@ public class Alien {
 	 */
 	public void moveX() {
 		if(goLeft){
-			x -=2;
+			x -=10;
 		}else{
-			x += 2;
+			x += 10;
 		}
 		this.me.setPosition(x, y);
 	}
@@ -88,7 +88,7 @@ public class Alien {
 	 * Moves alien down column
 	 */
 	public void moveY() {
-		y -= 5;
+		y -= 7;
 		this.me.setPosition(x, y);
 	}
 

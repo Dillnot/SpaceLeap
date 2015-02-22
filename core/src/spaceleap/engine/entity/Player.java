@@ -123,5 +123,11 @@ public class Player {
 	public Bullet getBullet() {
 		return this.bullet;
 	}
+	
+	/**
+	 * Returns the number of lives for the player
+	 * @return
+	 */
+	public int getLives() { return this.lives; }
 
 }

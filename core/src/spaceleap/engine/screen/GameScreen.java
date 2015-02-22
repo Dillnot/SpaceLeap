@@ -1,7 +1,6 @@
 package spaceleap.engine.screen;
 
 import java.util.ArrayList;
-import java.util.ListIterator;
 
 import sapceleap.game.SpaceLeapGame;
 import spaceleap.engine.entity.Bullet;
@@ -36,6 +35,8 @@ public class GameScreen implements Screen {
 
 	private short direction = 0;
 	private short killcount = 0;
+
+	private int count = 0;
 
 	/**
 	 * 
@@ -104,24 +105,10 @@ public class GameScreen implements Screen {
 		batch.begin();
 		player.draw(batch);
 
-		if (aliens[0][9].getPosition()[0] > 600
-				|| aliens[0][0].getPosition()[0] < 0) {
-			aliens[0][0].switchGoLeft();
-			for (int x = 0; x < 5; ++x) {
-				for (int y = 0; y < 10; ++y) {
-					aliens[x][y].moveY();
-				}
-			}
-
-		}
+		game.font.draw(batch, "Score: " + player.getScore(), 0, 475);
+		game.font.draw(batch, "Lives: " + player.getLives(), 500, 475);
 
 		// Draw all the aliens
-		for (int x = 0; x < 5; ++x) {
-			for (int y = 0; y < 10; ++y) {
-				aliens[x][y].moveX();
-			}
-		}
-
 		for (int x = 0; x < 5; ++x) {
 			for (int y = 0; y < 10; ++y) {
 				aliens[x][y].draw(batch);
@@ -159,8 +146,8 @@ public class GameScreen implements Screen {
 		}
 
 		batch.end();
-		
 
+		count += 1;
 	}
 
 	private void update() {
@@ -170,9 +157,9 @@ public class GameScreen implements Screen {
 
 			// Check user input
 			if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-					direction = -1;
+				direction = -1;
 			} else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-					direction = 1;
+				direction = 1;
 			} else {
 				direction = 0;
 			}
@@ -192,9 +179,12 @@ public class GameScreen implements Screen {
 		}
 
 		player.setX(direction);
+
+		moveAliens();
 	}
 
-	// Checks if the player's bullet collides with any of the aliens
+	// Checks if the player's bullet collides with any of the aliens 
+	// Also checks collision with enemy bullets
 	private void checkCollision() {
 
 		if (player.getBullet() != null) {
@@ -210,13 +200,39 @@ public class GameScreen implements Screen {
 							y.kill();
 							player.updateScore(y.getScore());
 							killcount += 1;
-							System.out.println(killcount);
 							return;
 						}
 					}
 				}
 			}
 		}
+	}
+
+	//Moves Aliens around the screen
+	private void moveAliens() {
+		
+		//Moves Aliens down a row
+		if (aliens[0][9].getPosition()[0] >= 600
+				|| aliens[0][0].getPosition()[0] <= 0) {
+			aliens[0][0].switchGoLeft();
+			for (int x = 0; x < 5; ++x) {
+				for (int y = 0; y < 10; ++y) {
+					aliens[x][y].moveY();
+					aliens[x][y].moveX();
+				}
+			}
+		}
+
+		//Every 20 draws, we move the aliens a set amount
+		if (count % 40 == 0) {
+			System.out.println(count);
+			for (int x = 0; x < 5; ++x) {
+				for (int y = 0; y < 10; ++y) {
+					aliens[x][y].moveX();
+				}
+			}
+		}
+
 	}
 
 	/*

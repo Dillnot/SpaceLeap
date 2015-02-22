@@ -40,12 +40,11 @@ public class Bullet {
 			y += moveSpeed;
 		}
 
-		if (y > 480 || y < 0) return false;
-			return false;
+		if (y > 480 || y < 0) {return false;}
 		else {
 			me.setY(y);
 			return true;
-		}
+  		}
 	}
 
 	// Draws Bullet to screen
