@@ -63,11 +63,12 @@ public class Alien {
 
 		this.me.setPosition(x, y);
 	}
+
 	/**
 	 * @return postion as an array form [x,y]
 	 */
-	public int[] getPosition(){
-		int[] p = {x,y};
+	public int[] getPosition() {
+		int[] p = { x, y };
 		return p;
 	}
 
@@ -75,15 +76,15 @@ public class Alien {
 	 * Moves alien along row
 	 */
 	public void moveX() {
-		if(goLeft){
-			x -=10;
-		}else{
+		if (goLeft) {
+			x -= 10;
+		} else {
 			x += 10;
 		}
 		this.me.setPosition(x, y);
 	}
-	
-	public void switchGoLeft(){
+
+	public void switchGoLeft() {
 		goLeft = !goLeft;
 	}
 
@@ -130,22 +131,23 @@ public class Alien {
 	public void draw(Batch b) {
 		this.me.draw(b);
 	}
-	
+
 	/**
 	 * Reset Texture to Special Alien
 	 */
 	protected void resetTex() {
 		this.me = new Sprite(specialTex);
-		
+
 	}
-	
-	//Allows for resetting the alien position
+
+	// Allows for resetting the alien position
 	public void setX(int realX) {
 		this.x = realX;
-		me.setPosition(x, y);	
+		me.setPosition(x, y);
 	}
+
 	public void setY(int posY) {
 		this.y = posY;
-		me.setPosition(x,y);
+		me.setPosition(x, y);
 	}
 }

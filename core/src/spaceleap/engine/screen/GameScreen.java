@@ -1,7 +1,5 @@
 package spaceleap.engine.screen;
 
-
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -27,14 +25,19 @@ import com.leapmotion.leap.Controller;
  *
  */
 public class GameScreen implements Screen {
-	
 
 	final SpaceLeapGame game;
 	private SpriteBatch batch;
 	private Texture img;
 	private Player player;
 	Alien[][] aliens;
-	SpecialAlien sa = new SpecialAlien(AlienType.SPECIAL,0,0); //Just given 0,0 as the location is set within constructor
+	SpecialAlien sa = new SpecialAlien(AlienType.SPECIAL, 0, 0); // Just given
+																	// 0,0 as
+																	// the
+																	// location
+																	// is set
+																	// within
+																	// constructor
 
 	private Controller c = new Controller();
 	private LeapListener l = new LeapListener();
@@ -45,12 +48,12 @@ public class GameScreen implements Screen {
 	private int count = 0;
 	ArrayList<Bullet> alienBullets = new ArrayList<Bullet>();
 	ArrayList<Bullet> old = new ArrayList<Bullet>();
-	
+
 	ArrayList<Explode> expolsions = new ArrayList<Explode>();
 	ArrayList<Explode> expolsionsToRemove = new ArrayList<Explode>();
-	
+
 	Random rand = new Random();
-	
+
 	/**
 	 * 
 	 */
@@ -62,26 +65,8 @@ public class GameScreen implements Screen {
 
 		aliens = new Alien[5][10];
 
-		int posX = (game.VIEWPORT_WIDTH - 470) / 2;
-		int posY = 400;
+		resetGame();
 
-		// Create new Array of Aliens :)
-		for (int x = 0; x < 5; ++x) {
-			for (int y = 0; y < 10; ++y) {
-				int realX = posX + 15;
-
-				if (y % 2 == 0) {
-					aliens[x][y] = new Alien(AlienType.ORANGE, realX, posY);
-				} else {
-					aliens[x][y] = new Alien(AlienType.PURPLE, realX, posY);
-				}
-				posX += 32 + 15;
-			}
-			posX = (game.VIEWPORT_WIDTH - 470) / 2;
-			posY -= 35;
-		}	
-		
-		resetAliens();
 		c.addListener(l);
 	}
 
@@ -106,7 +91,7 @@ public class GameScreen implements Screen {
 		update();
 		draw();
 		checkCollision();
-		
+
 		// Every 20 draws, we attempt to add some bullets
 		if (count % 20 == 0) {
 			alienShooting();
@@ -118,7 +103,7 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		if (killcount == 50) {
-			game.setScreen(new GameOverScreen(game, player.getScore()));
+			resetGame();
 		}
 
 		// Start draw and draw player
@@ -146,26 +131,30 @@ public class GameScreen implements Screen {
 			}
 		}
 
-		
-		//Updating and drawing the bullets all at once :/
-		for(Bullet b : alienBullets){
-			if(!b.move()) { old.add(b); }
-			else { b.draw(batch); }
-		}
-		for(Bullet b: old) { alienBullets.remove(b); }
-		
-		//Explosion drawing
-		for(Explode b : expolsions){
-			if(b.remove == 10){
-				 expolsionsToRemove.add(b);
+		// Updating and drawing the bullets all at once :/
+		for (Bullet b : alienBullets) {
+			if (!b.move()) {
+				old.add(b);
+			} else {
+				b.draw(batch);
 			}
-			b.draw(batch); 
 		}
-		for(Explode b: expolsionsToRemove) { expolsions.remove(b); }
-		
-		
-		
-		//Drawing the special alien
+		for (Bullet b : old) {
+			alienBullets.remove(b);
+		}
+
+		// Explosion drawing
+		for (Explode b : expolsions) {
+			if (b.remove == 10) {
+				expolsionsToRemove.add(b);
+			}
+			b.draw(batch);
+		}
+		for (Explode b : expolsionsToRemove) {
+			expolsions.remove(b);
+		}
+
+		// Drawing the special alien
 		sa.draw(batch);
 		batch.end();
 
@@ -203,7 +192,6 @@ public class GameScreen implements Screen {
 		player.setX(direction);
 
 		moveAliens();
-		
 
 	}
 
@@ -222,7 +210,7 @@ public class GameScreen implements Screen {
 								&& (by >= y.getPosition()[1] && by <= y
 										.getPosition()[1] + 32)) {
 							y.kill();
-							expolsions.add(new Explode(bx,by));
+							expolsions.add(new Explode(bx, by));
 							player.updateScore(y.getScore());
 							killcount += 1;
 							return;
@@ -230,35 +218,36 @@ public class GameScreen implements Screen {
 					}
 				}
 			}
-			
-			if ((player.getBullet().getPosition()[0] >= sa.getPosition()[0] && player.getBullet().getPosition()[0] <= sa.getPosition()[0] + 32)&& (player.getBullet().getPosition()[1] >= sa.getPosition()[1] && player.getBullet().getPosition()[1] <= sa.getPosition()[1] + 32))
-			{
+
+			if ((player.getBullet().getPosition()[0] >= sa.getPosition()[0] && player
+					.getBullet().getPosition()[0] <= sa.getPosition()[0] + 32)
+					&& (player.getBullet().getPosition()[1] >= sa.getPosition()[1] && player
+							.getBullet().getPosition()[1] <= sa.getPosition()[1] + 32)) {
 				sa.kill();
 				player.updateScore(sa.getScore());
 			}
 		}
-		
-		
-		for(Bullet b : alienBullets)
-		{
+
+		for (Bullet b : alienBullets) {
 			int bx = b.getPosition()[0];
 			int by = b.getPosition()[1];
-			
-			if ((bx >= player.getPosition()[0] && bx <= player.getPosition()[0] + 32) && (by >= player.getPosition()[1] && by <= player.getPosition()[1] + 32)){
-				
-				//Remove a players life and check if they are dead.
-				if(!player.kill()) 
-				{ 
+
+			if ((bx >= player.getPosition()[0] && bx <= player.getPosition()[0] + 32)
+					&& (by >= player.getPosition()[1] && by <= player
+							.getPosition()[1] + 32)) {
+
+				// Remove a players life and check if they are dead.
+				if (!player.kill()) {
 					game.setScreen(new GameOverScreen(game, player.getScore()));
-					
+
 				}
-				//Player is dead :(
+				// Player is dead :(
 				else {
 					alienBullets.clear();
 					batch.begin();
-					//new Explode(bx,by).draw(batch);
+					// new Explode(bx,by).draw(batch);
 					batch.end();
-					
+
 					try {
 						Thread.sleep(500);
 					} catch (InterruptedException e) {
@@ -279,29 +268,27 @@ public class GameScreen implements Screen {
 	}
 
 	// Generates bullets for aliens
-	private void alienShooting(){
+	private void alienShooting() {
 
-		if (alienBullets.size() <= 0)
-		{ 
-			ArrayList<Alien> enemies = new ArrayList<Alien>();
-			
-			for(int x = 4; x >= 0; --x)
-			{
-				for(int y = 0; y < 10; ++y)
-				{
-					if(!aliens[x][y].isDead())
-					{
-						enemies.add(aliens[x][y]);
+		if (killcount < 50) {
+			if (alienBullets.size() <= 0) {
+				ArrayList<Alien> enemies = new ArrayList<Alien>();
+
+				for (int x = 4; x >= 0; --x) {
+					for (int y = 0; y < 10; ++y) {
+						if (!aliens[x][y].isDead()) {
+							enemies.add(aliens[x][y]);
+						}
 					}
 				}
-			}	
-			int max = rand.nextInt(3);
-			for(int i = 0; i < max; ++i)
-			{
-				Alien a = enemies.get(rand.nextInt(enemies.size()));
-				enemies.remove(a);
-				alienBullets.add(new Bullet(a.getPosition()[0] + 16, a.getPosition()[1], true));
-			}		
+				int max = rand.nextInt(3);
+				for (int i = 0; i < max; ++i) {
+					Alien a = enemies.get(rand.nextInt(enemies.size()));
+					enemies.remove(a);
+					alienBullets.add(new Bullet(a.getPosition()[0] + 16, a
+							.getPosition()[1], true));
+				}
+			}
 		}
 	}
 
@@ -318,12 +305,10 @@ public class GameScreen implements Screen {
 					aliens[x][y].moveX();
 				}
 			}
-			
-			//If aliens reach bottom of screen
-			if (aliens[4][9].getPosition()[1] <= 60)
-			{
-				if(!player.kill()) 
-				{ 
+
+			// If aliens reach bottom of screen
+			if (aliens[4][9].getPosition()[1] <= 60) {
+				if (!player.kill()) {
 					game.setScreen(new GameOverScreen(game, player.getScore()));
 				}
 				resetAliens();
@@ -338,12 +323,12 @@ public class GameScreen implements Screen {
 				}
 			}
 		}
-		
+
 		sa.moveX();
 
 	}
 
-	//Resets the position of Aliens in the game	
+	// Resets the position of Aliens in the game
 	private void resetAliens() {
 		int posX = (game.VIEWPORT_WIDTH - 470) / 2;
 		int posY = 400;
@@ -358,7 +343,7 @@ public class GameScreen implements Screen {
 			}
 			posX = (game.VIEWPORT_WIDTH - 470) / 2;
 			posY -= 35;
-		}	
+		}
 	}
 
 	/*
@@ -414,6 +399,31 @@ public class GameScreen implements Screen {
 	public void dispose() {
 		batch.dispose();
 		img.dispose();
+	}
+
+	public void resetGame() {
+		int posX = (game.VIEWPORT_WIDTH - 470) / 2;
+		int posY = 400;
+
+		// Create new Array of Aliens :)
+		for (int x = 0; x < 5; ++x) {
+			for (int y = 0; y < 10; ++y) {
+				int realX = posX + 15;
+
+				if (y % 2 == 0) {
+					aliens[x][y] = new Alien(AlienType.ORANGE, realX, posY);
+				} else {
+					aliens[x][y] = new Alien(AlienType.PURPLE, realX, posY);
+				}
+				posX += 32 + 15;
+			}
+			posX = (game.VIEWPORT_WIDTH - 470) / 2;
+			posY -= 35;
+		}
+
+		alienBullets.clear();
+
+		killcount = 0;
 	}
 
 }
