@@ -33,7 +33,7 @@ public class MainMenuScreen implements Screen {
 		game.font.draw(game.batch, "press space begin!", 200, 380);
 
 		game.font.draw(game.batch, "Options ->", 550, 350);
-		game.font.draw(game.batch, " <- scores", 550, 340);
+		game.font.draw(game.batch, " <- scores", 0, 350);
 		game.font
 				.drawMultiLine(
 						game.batch,
