@@ -44,7 +44,8 @@ public class OptionsScreen implements Screen {
 		else if (game.INPUT_MODE.compareTo("LEAP") == 0)
 		{
 			game.font.draw(game.batch, "Move Hand Left-> Move Left", 100, 100);
-			game.font.draw(game.batch, "Move Hand Right -> Move Right", 100,80);
+			game.font
+					.draw(game.batch, "Move Hand Right -> Move Right", 100,80);
 			game.font.draw(game.batch, "Make fist -> Fire bullet", 100, 60);
 		}
 		game.batch.end();

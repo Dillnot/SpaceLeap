@@ -123,20 +123,23 @@ public class Player {
 	public Bullet getBullet() {
 		return this.bullet;
 	}
-	
+
 	/**
 	 * Returns the number of lives for the player
+	 * 
 	 * @return
 	 */
-	public int getLives() { return this.lives; }
-	
+	public int getLives() {
+		return this.lives;
+	}
+
 	/**
 	 * Returns player position
+	 * 
 	 * @return
 	 */
-	public int[] getPosition()
-	{
-		int[] pos = {x,y};
+	public int[] getPosition() {
+		int[] pos = { x, y };
 		return pos;
 	}
 

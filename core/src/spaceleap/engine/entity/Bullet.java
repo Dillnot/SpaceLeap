@@ -12,18 +12,19 @@ public class Bullet {
 	private final Sprite me = new Sprite(new Texture("shot.png"));
 	private final int moveSpeed = 3;
 	private boolean alien;
-	
+
 	public Bullet(int x, int y) {
 		this.x = x;
 		this.y = y;
 		this.alien = false;
-		this.me.setPosition(x,y);
+		this.me.setPosition(x, y);
 	}
-	public Bullet(int x, int y ,boolean al){
+
+	public Bullet(int x, int y, boolean al) {
 		this.x = x;
 		this.y = y;
 		this.alien = al;
-		this.me.setPosition(x,y);
+		this.me.setPosition(x, y);
 	}
 
 	/**
@@ -35,18 +36,18 @@ public class Bullet {
 	}
 
 	public boolean move() {
-		if (this.alien){
+		if (this.alien) {
 			this.y -= moveSpeed;
-		} else{
+		} else {
 			this.y += moveSpeed;
 		}
 
-		if (this.y > 480 || this.y < 0){
+		if (this.y > 480 || this.y < 0) {
 			return false;
-		}else {
+		} else {
 			this.me.setY(y);
 			return true;
-  		}
+		}
 	}
 
 	// Draws Bullet to screen

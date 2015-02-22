@@ -168,7 +168,7 @@ public class GameOverScreen implements Screen {
 			sb.append(x + 1);
 			sb.append(": ");
 			sb.append(Scores.get(x));
-			game.font.draw(game.batch, sb.toString(), 300, (240 - (x * 20)));
+			game.font.draw(game.batch, sb.toString(), 300, (230 - (x * 20)));
 
 		}
 		
