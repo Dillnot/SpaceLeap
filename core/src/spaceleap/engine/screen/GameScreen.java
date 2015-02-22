@@ -98,7 +98,7 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		if (killcount == 50) {
-			game.setScreen(new GameOverScreen(game));
+			game.setScreen(new GameOverScreen(game, player.getScore()));
 		}
 
 		// Start draw and draw player
@@ -170,14 +170,8 @@ public class GameScreen implements Screen {
 
 			// Check user input
 			if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-				if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
-					direction = -2;
-				else
 					direction = -1;
 			} else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-				if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
-					direction = 2;
-				else
 					direction = 1;
 			} else {
 				direction = 0;
@@ -200,6 +194,7 @@ public class GameScreen implements Screen {
 		player.setX(direction);
 	}
 
+	// Checks if the player's bullet collides with any of the aliens
 	private void checkCollision() {
 
 		if (player.getBullet() != null) {

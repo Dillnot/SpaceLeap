@@ -50,39 +50,33 @@ public class LeapListener extends Listener {
 
 		// Get the distance the hand is found from the origin. Set the direction
 		// in which the player should go.
-		
-		
-		boolean isFire = false;
+
 		if (frame.hands().count() == 0) {
 			direction = 0;
 		} else {
 			for (Hand hand : frame.hands()) {
 				float pos = hand.palmPosition().getX();
 
-				if (hand.palmPosition().getX() < 0) {
-					if (pos < -75) {
-						direction = -2;
-					} else {
+				if (pos < 0) {
 						direction = -1;
-					}
-				} else if (hand.palmPosition().getX() > 0) {
-					if (pos > 75) {
-						direction = 2;
-					} else {
+				} else if (pos > 0) {
 						direction = 1;
 					}
-				} else {
+				else {
 					direction = 0;
 				}
-				
-				//We want to check the index finger!
+
+				// We want to check the index finger!
 				int id = (hand.id() * 10) + 1;
-					
-				if (!hand.finger(id).isExtended()) { fire = true; }
-				else { fire = false; }	
+
+				if (!hand.finger(id).isExtended()) {
+					fire = true;
+				} else {
+					fire = false;
 				}
-				
-			}	
+			}
+
+		}
 
 		// Get hands
 		// for(Hand hand : frame.hands()) {
