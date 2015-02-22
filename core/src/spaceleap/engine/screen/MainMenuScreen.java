@@ -29,11 +29,12 @@ public class MainMenuScreen implements Screen {
 
 		//Rendering Main Options
 		game.batch.begin();
-		game.font.draw(game.batch, "Welcome to spaceleap!!! ", 300, 400);
-		game.font.draw(game.batch, "press space begin!", 300, 380);
+		game.font.draw(game.batch, "Welcome to spaceleap!!! ", 200, 400);
+		game.font.draw(game.batch, "press space begin!", 200, 380);
 		
 		game.font.draw(game.batch, "Options ->", 550, 350);
 		game.font.draw(game.batch, " <- scores", 550, 340);
+		game.font.drawMultiLine(game.batch, "Classic game of Space Invaders with motion control.\nMove using your desired input mode.\nView and change this in options (press <right>)\nKill all the aliens.\nIf they touch you you use a life.\nFire a bullet to kill them.\nYou get one bullet at a time!", 50,200);
 		game.batch.end();
 
 		//Checking for starting a game or to move options

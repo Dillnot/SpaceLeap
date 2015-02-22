@@ -319,7 +319,8 @@ public class GameScreen implements Screen {
 				}
 			}
 			
-			if (aliens[4][9].getPosition()[1] <= 50)
+			//If aliens reach bottom of screen
+			if (aliens[4][9].getPosition()[1] <= 60)
 			{
 				if(!player.kill()) 
 				{ 
@@ -329,8 +330,8 @@ public class GameScreen implements Screen {
 			}
 		}
 
-		// Every 20 draws, we move the aliens a set amount
-		if (count % 20 == 0) {
+		// Every 25 draws, we move the aliens a set amount
+		if (count % 25 == 0) {
 			for (int x = 0; x < 5; ++x) {
 				for (int y = 0; y < 10; ++y) {
 					aliens[x][y].moveX();

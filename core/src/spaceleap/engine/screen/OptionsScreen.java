@@ -33,12 +33,26 @@ public class OptionsScreen implements Screen {
 		game.font.draw(game.batch, "Input Mode: " + game.INPUT_MODE, 240, 300);
 		game.font.draw(game.batch, "Press <space> to change", 240, 270);
 		game.font.draw(game.batch, "<- MainMenu", 0, 350);
+		
+		
+		if (game.INPUT_MODE.compareTo("KEYBOARD") == 0)
+		{
+			game.font.draw(game.batch, "Left Arrow -> Move Left", 100, 100);
+			game.font.draw(game.batch, "Right Arrow -> Move Right", 100,80);
+			game.font.draw(game.batch, "Space -> Fire bullet", 100, 60);
+		}
+		else if (game.INPUT_MODE.compareTo("LEAP") == 0)
+		{
+			game.font.draw(game.batch, "Move Hand Left-> Move Left", 100, 100);
+			game.font.draw(game.batch, "Move Hand Right -> Move Right", 100,80);
+			game.font.draw(game.batch, "Make fist -> Fire bullet", 100, 60);
+		}
 		game.batch.end();
 		
 		//Update the screen when space is pressed
 		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
 		{
-			if (game.INPUT_MODE == "KEYBOARD") { game.INPUT_MODE = "LEAP"; }
+			if (game.INPUT_MODE.compareTo("KEYBOARD") == 0) { game.INPUT_MODE = "LEAP"; }
 			else { game.INPUT_MODE = "KEYBOARD"; } 
 		}
 		//Exit back to the MainMenu
