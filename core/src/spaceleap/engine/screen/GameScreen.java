@@ -2,6 +2,9 @@ package spaceleap.engine.screen;
 
 
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import sapceleap.game.SpaceLeapGame;
 import spaceleap.engine.entity.Bullet;
 import spaceleap.engine.entity.Player;
@@ -29,7 +32,6 @@ public class GameScreen implements Screen {
 	private Texture img;
 	private Player player;
 	Alien[][] aliens;
-	Bullet ab = null;
 	SpecialAlien sa = new SpecialAlien(AlienType.SPECIAL,0,0); //Just given 0,0 as the location is set within constructor
 
 	private Controller c = new Controller();
@@ -39,6 +41,10 @@ public class GameScreen implements Screen {
 	private short killcount = 0;
 
 	private int count = 0;
+	ArrayList<Bullet> alienBullets = new ArrayList<Bullet>();
+	ArrayList<Bullet> old = new ArrayList<Bullet>();
+	
+	Random rand = new Random();
 	
 	/**
 	 * 
@@ -95,7 +101,11 @@ public class GameScreen implements Screen {
 		update();
 		draw();
 		checkCollision();
-		alienShooting();
+		
+		// Every 20 draws, we attempt to add some bullets
+		if (count % 20 == 0) {
+			alienShooting();
+		}
 	}
 
 	private void draw() {
@@ -130,15 +140,18 @@ public class GameScreen implements Screen {
 				player.getBullet().draw(batch);
 			}
 		}
-		
-		if (ab != null) { 
-			
-			if (!ab.move()) { ab = null; }
-			else
-			{
-			ab.draw(batch); }
-		}
 
+		
+		//Updating and drawing the bullets all at once :/
+		for(Bullet b : alienBullets)
+		{
+			if(!b.move()) { old.add(b); }
+			else { b.draw(batch); }
+		}
+		for(Bullet b: old) { alienBullets.remove(b); }
+		
+		
+		
 		//Drawing the special alien
 		sa.draw(batch);
 		batch.end();
@@ -212,32 +225,53 @@ public class GameScreen implements Screen {
 		}
 		
 		
-		//for(Bullet b : aliensBullets)
-		//{
-		//	int bx = b.getPosition()[0];
-		//	int by = b.getPosition()[1];
-		//	
-		//	if ((bx >= player.getPosition()[0] && bx <= player.getPosition()[0] + 32) && (by >= player.getPosition()[1] && by <= player.getPosition()[1] + 32))
-		//	{
-		//		//Remove a players life and check if they are dead.
-		//		if(!player.kill()) 
-		//		{
-		//			//aliensBullets.clear();
-		//			break;
-		//		}
-		//		//Player is dead :(
-		//		else { game.setScreen(new GameOverScreen(game, player.getScore()));
-		//		}
-		//	}
-		//}
+		for(Bullet b : alienBullets)
+		{
+			int bx = b.getPosition()[0];
+			int by = b.getPosition()[1];
+			
+			if ((bx >= player.getPosition()[0] && bx <= player.getPosition()[0] + 32) && (by >= player.getPosition()[1] && by <= player.getPosition()[1] + 32))
+			{
+				//Remove a players life and check if they are dead.
+				if(!player.kill()) 
+				{ 
+					game.setScreen(new GameOverScreen(game, player.getScore()));
+					
+				}
+				//Player is dead :(
+				else {
+					alienBullets.clear();
+					break;
+				}
+			}
+		}
 	}
 
 	// Generates bullets for aliens
 	private void alienShooting(){
 
-		if (ab == null)
-		{ ab = new Bullet(aliens[0][0].x + 16, aliens[0][0].y, true);}
-		
+		if (alienBullets.size() <= 0)
+		{ 
+			ArrayList<Alien> enemies = new ArrayList<Alien>();
+			
+			for(int x = 4; x >= 0; --x)
+			{
+				for(int y = 0; y < 10; ++y)
+				{
+					if(!aliens[x][y].isDead())
+					{
+						enemies.add(aliens[x][y]);
+					}
+				}
+			}	
+			int max = rand.nextInt(3);
+			for(int i = 0; i < max; ++i)
+			{
+				Alien a = enemies.get(rand.nextInt(enemies.size()));
+				enemies.remove(a);
+				alienBullets.add(new Bullet(a.getPosition()[0] + 16, a.getPosition()[1], true));
+			}		
+		}
 	}
 
 	// Moves Aliens around the screen
