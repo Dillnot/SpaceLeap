@@ -43,10 +43,10 @@ public class MainMenuScreen implements Screen {
 			game.os.dispose();
 			dispose();
 		}
-		else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+		else if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT))
 		{
 			game.setScreen(game.os);
-		}else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+		}else if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
 			game.setScreen(new GameOverScreen(game));
 		}
 	}

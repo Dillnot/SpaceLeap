@@ -56,7 +56,7 @@ public class OptionsScreen implements Screen {
 			else { game.INPUT_MODE = "KEYBOARD"; } 
 		}
 		//Exit back to the MainMenu
-		else if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
+		else if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT))
 		{
 			game.setScreen(game.mms);
 		}
