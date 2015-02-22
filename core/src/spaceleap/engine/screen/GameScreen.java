@@ -8,6 +8,7 @@ import java.util.Random;
 import sapceleap.game.SpaceLeapGame;
 import spaceleap.engine.entity.Bullet;
 import spaceleap.engine.entity.Player;
+import spaceleap.engine.entity.explode;
 import spaceleap.engine.entity.enemy.Alien;
 import spaceleap.engine.entity.enemy.Alien.AlienType;
 import spaceleap.engine.entity.enemy.SpecialAlien;
@@ -26,6 +27,7 @@ import com.leapmotion.leap.Controller;
  *
  */
 public class GameScreen implements Screen {
+	
 
 	final SpaceLeapGame game;
 	private SpriteBatch batch;
@@ -43,6 +45,9 @@ public class GameScreen implements Screen {
 	private int count = 0;
 	ArrayList<Bullet> alienBullets = new ArrayList<Bullet>();
 	ArrayList<Bullet> old = new ArrayList<Bullet>();
+	
+	ArrayList<explode> expolsions = new ArrayList<explode>();
+	ArrayList<explode> expolsionsToRemove = new ArrayList<explode>();
 	
 	Random rand = new Random();
 	
@@ -143,11 +148,20 @@ public class GameScreen implements Screen {
 
 		
 		//Updating and drawing the bullets all at once :/
-		for(Bullet b : alienBullets)
-		{
+		for(Bullet b : alienBullets){
 			if(!b.move()) { old.add(b); }
 			else { b.draw(batch); }
+		}
 		for(Bullet b: old) { alienBullets.remove(b); }
+		
+		//Explosion drawing
+		for(explode b : expolsions){
+			if(b.remove == 10){
+				 expolsionsToRemove.add(b);
+			}
+			b.draw(batch); 
+		}
+		for(explode b: expolsionsToRemove) { expolsions.remove(b); }
 		
 		
 		
@@ -208,6 +222,7 @@ public class GameScreen implements Screen {
 								&& (by >= y.getPosition()[1] && by <= y
 										.getPosition()[1] + 32)) {
 							y.kill();
+							expolsions.add(new explode(bx,by));
 							player.updateScore(y.getScore());
 							killcount += 1;
 							return;
@@ -231,6 +246,7 @@ public class GameScreen implements Screen {
 			
 			if ((bx >= player.getPosition()[0] && bx <= player.getPosition()[0] + 32) && (by >= player.getPosition()[1] && by <= player.getPosition()[1] + 32))
 			{
+				expolsions.add(new explode(bx,by));
 				//Remove a players life and check if they are dead.
 				if(!player.kill()) 
 				{ 
