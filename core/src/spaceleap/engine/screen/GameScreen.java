@@ -48,6 +48,25 @@ public class GameScreen implements Screen {
 
 		aliens = new Alien[5][10];
 
+		int posX = (game.VIEWPORT_WIDTH - 470) / 2;
+		int posY = 400;
+
+		// Create new Array of Aliens :)
+		for (int x = 0; x < 5; ++x) {
+			for (int y = 0; y < 10; ++y) {
+				int realX = posX + 15;
+
+				if (y % 2 == 0) {
+					aliens[x][y] = new Alien(AlienType.ORANGE, realX, posY);
+				} else {
+					aliens[x][y] = new Alien(AlienType.PURPLE, realX, posY);
+				}
+				posX += 32 + 15;
+			}
+			posX = (game.VIEWPORT_WIDTH - 470) / 2;
+			posY -= 35;
+		}	
+		
 		resetAliens();
 		c.addListener(l);
 	}
@@ -221,14 +240,14 @@ public class GameScreen implements Screen {
 		}
 
 		//Every 20 draws, we move the aliens a set amount
-		if (count % 10 == 0) {
+		//if (count % 20 == 0) {
 			System.out.println(count);
 			for (int x = 0; x < 5; ++x) {
 				for (int y = 0; y < 10; ++y) {
 					aliens[x][y].moveX();
 				}
 			}
-		}
+		//}
 		
 		sa.moveX();
 
@@ -236,25 +255,8 @@ public class GameScreen implements Screen {
 
 	//Resets the position of Aliens in the game
 	//////////////////////////////////////////////////
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 	//TODO : MAKE THIS JUST CHANGE THE POSITION OF ALIENS, NOT CREATE A NEW LOT
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	///////////////////////////////////////////////////////
 	
@@ -267,12 +269,8 @@ public class GameScreen implements Screen {
 		for (int x = 0; x < 5; ++x) {
 			for (int y = 0; y < 10; ++y) {
 				int realX = posX + 15;
-
-				if (y % 2 == 0) {
-					aliens[x][y] = new Alien(AlienType.ORANGE, realX, posY);
-				} else {
-					aliens[x][y] = new Alien(AlienType.PURPLE, realX, posY);
-				}
+				aliens[x][y].setX(realX);
+				aliens[x][y].setY(posY);
 				posX += 32 + 15;
 			}
 			posX = (game.VIEWPORT_WIDTH - 470) / 2;
