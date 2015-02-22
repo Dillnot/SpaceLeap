@@ -33,6 +33,7 @@ public class MainMenuScreen implements Screen {
 		game.font.draw(game.batch, "press space begin!", 300, 380);
 		
 		game.font.draw(game.batch, "Options ->", 550, 350);
+		game.font.draw(game.batch, " <- scores", 550, 340);
 		game.batch.end();
 
 		//Checking for starting a game or to move options
@@ -44,6 +45,8 @@ public class MainMenuScreen implements Screen {
 		else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
 		{
 			game.setScreen(game.os);
+		}else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+			game.setScreen(new GameOverScreen(game));
 		}
 	}
 

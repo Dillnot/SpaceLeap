@@ -245,7 +245,6 @@ public class GameScreen implements Screen {
 			int by = b.getPosition()[1];
 			
 			if ((bx >= player.getPosition()[0] && bx <= player.getPosition()[0] + 32) && (by >= player.getPosition()[1] && by <= player.getPosition()[1] + 32)){
-				expolsions.add(new Explode(bx,by));
 				
 				//Remove a players life and check if they are dead.
 				if(!player.kill()) 
@@ -256,6 +255,10 @@ public class GameScreen implements Screen {
 				//Player is dead :(
 				else {
 					alienBullets.clear();
+					batch.begin();
+					//new Explode(bx,by).draw(batch);
+					batch.end();
+					
 					try {
 						Thread.sleep(500);
 					} catch (InterruptedException e) {
