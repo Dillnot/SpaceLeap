@@ -1,6 +1,10 @@
 package spaceleap.engine.screen;
 
+import java.util.ArrayList;
+import java.util.ListIterator;
+
 import sapceleap.game.SpaceLeapGame;
+import spaceleap.engine.entity.Bullet;
 import spaceleap.engine.entity.Player;
 import spaceleap.engine.entity.enemy.Alien;
 import spaceleap.engine.entity.enemy.Alien.AlienType;
@@ -25,6 +29,7 @@ public class GameScreen implements Screen {
 	private Texture img;
 	private Player player;
 	Alien[][] aliens;
+	Bullet[] aliensBullets;
 
 	private Controller c = new Controller();
 	private LeapListener l = new LeapListener();
@@ -133,8 +138,28 @@ public class GameScreen implements Screen {
 				player.getBullet().draw(batch);
 			}
 		}
+		// Calculate possible shot location
+		ArrayList<int[]> possShotLocations = new ArrayList<int[]>();
+		int c = 0;
+		for (int x = 4; x >= 0; --x) {
+			for (int y = 0; y < 10; ++y) {
+				if (!(aliens[x][y].isDead())) {
+					int[] p = { x, y };
+					possShotLocations.add(p);
+					c++;
+				}
+			}
+		}
+		// cut off all empty shot conditions
+		int[] p = { 0, 0 };
+		for (int x = 0; x < 10; x++) {
+			if (possShotLocations.get(x) == p) {
+				possShotLocations.remove(x);
+			}
+		}
 
 		batch.end();
+		
 
 	}
 
