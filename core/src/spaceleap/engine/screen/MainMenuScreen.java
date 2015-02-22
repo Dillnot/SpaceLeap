@@ -43,8 +43,8 @@ public class MainMenuScreen implements Screen {
 
 		// Checking for starting a game or to move options
 		if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-			game.gs = new GameScreen(game);
-			game.setScreen(game.gs);
+			//game.gs = new GameScreen(game);
+			game.setScreen(new GameScreen(game));
 			game.os.dispose();
 			dispose();
 		} else if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
