@@ -1,7 +1,10 @@
 package spaceleap.engine.screen;
 
 
+import java.util.ArrayList;
+
 import sapceleap.game.SpaceLeapGame;
+import spaceleap.engine.entity.Bullet;
 import spaceleap.engine.entity.Player;
 import spaceleap.engine.entity.enemy.Alien;
 import spaceleap.engine.entity.enemy.Alien.AlienType;
@@ -36,7 +39,6 @@ public class GameScreen implements Screen {
 	private short killcount = 0;
 
 	private int count = 0;
-	private ArrayList<Bullet> aliensBullets  = new ArrayList<Bullet>();
 
 	/**
 	 * 
@@ -123,25 +125,13 @@ public class GameScreen implements Screen {
 			// Check if bullet is off the screen, if so we just remove it by
 			// added 0 to the score, else draw it
 			if (!player.getBullet().move()) {
-				
+				player.updateScore(0);
 			} else {
 				player.getBullet().draw(batch);
 			}
 		}
 
-		ArrayList<Bullet> remove = new ArrayList<Bullet>();
-		for (Bullet b : aliensBullets) {
-			if(!b.move()){
-				remove.add(b);
 		
-			}else{
-				b.draw(batch);
-			}
-		}
-		for (Bullet b : remove) {
-			aliensBullets.remove(b);
-		}
-
 		//Drawing the special alien
 		sa.draw(batch);
 		batch.end();
@@ -231,20 +221,8 @@ public class GameScreen implements Screen {
 
 	// Generates bullets for aliens
 	private void alienShooting(){
-		// Calculate possible shot location
-		ArrayList<int[]> possShotLocations = new ArrayList<int[]>();
-		for (int x = 4; x >= 0; x--) {
-			for (int y = 0; y < 10; y++) {
-				if (!(aliens[x][y].isDead())) {
-					possShotLocations.add(aliens[x][y].getPosition());
-					}
-				}
-			}
-		if(aliensBullets.isEmpty())	{	
-			
-			Bullet b = new Bullet(possShotLocations.get(0)[0] , possShotLocations.get(0)[1], true);
-			aliensBullets.add(b);
-		}
+		
+
 	}
 
 	// Moves Aliens around the screen
@@ -272,14 +250,14 @@ public class GameScreen implements Screen {
 		}
 
 		// Every 20 draws, we move the aliens a set amount
-		//if (count % 20 == 0) {
+		if (count % 20 == 0) {
 			//System.out.println(count);
 			for (int x = 0; x < 5; ++x) {
 				for (int y = 0; y < 10; ++y) {
 					aliens[x][y].moveX();
 				}
 			}
-		//}
+		}
 		
 		sa.moveX();
 
