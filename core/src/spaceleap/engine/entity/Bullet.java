@@ -9,7 +9,7 @@ public class Bullet {
 	// Local properties
 	private int x;
 	private int y;
-	private static final Sprite me = new Sprite(new Texture("shot.png"));
+	private final Sprite me = new Sprite(new Texture("shot.png"));
 	private final int moveSpeed = 3;
 	private boolean alien;
 	

@@ -1,7 +1,6 @@
 package spaceleap.engine.screen;
 
 
-import java.util.ArrayList;
 
 import sapceleap.game.SpaceLeapGame;
 import spaceleap.engine.entity.Bullet;
@@ -30,6 +29,7 @@ public class GameScreen implements Screen {
 	private Texture img;
 	private Player player;
 	Alien[][] aliens;
+	Bullet ab = null;
 	SpecialAlien sa = new SpecialAlien(AlienType.SPECIAL,0,0); //Just given 0,0 as the location is set within constructor
 
 	private Controller c = new Controller();
@@ -39,7 +39,6 @@ public class GameScreen implements Screen {
 	private short killcount = 0;
 
 	private int count = 0;
-	private ArrayList<Bullet> aliensBullets  = new ArrayList<Bullet>();
 	
 	/**
 	 * 
@@ -131,18 +130,13 @@ public class GameScreen implements Screen {
 				player.getBullet().draw(batch);
 			}
 		}
-
-		ArrayList<Bullet> remove = new ArrayList<Bullet>();
-		for (Bullet b : aliensBullets) {
-			if(!b.move()){
-				remove.add(b);
 		
-			}else{
-				b.draw(batch);
-			}
-		}
-		for (Bullet b : remove) {
-			aliensBullets.remove(b);
+		if (ab != null) { 
+			
+			if (!ab.move()) { ab = null; }
+			else
+			{
+			ab.draw(batch); }
 		}
 
 		//Drawing the special alien
@@ -240,20 +234,10 @@ public class GameScreen implements Screen {
 
 	// Generates bullets for aliens
 	private void alienShooting(){
-		// Calculate possible shot location
-		ArrayList<int[]> possShotLocations = new ArrayList<int[]>();
-		for (int x = 4; x >= 0; x--) {
-			for (int y = 0; y < 10; y++) {
-				if (!(aliens[x][y].isDead())) {
-					possShotLocations.add(aliens[x][y].getPosition());
-					}
-				}
-			}
-		if(aliensBullets.isEmpty())	{	
-			
-			Bullet b = new Bullet(possShotLocations.get(0)[0] , possShotLocations.get(0)[1], true);
-			aliensBullets.add(b);
-		}
+
+		if (ab == null)
+		{ ab = new Bullet(aliens[0][0].x + 16, aliens[0][0].y, true);}
+		
 	}
 
 	// Moves Aliens around the screen
