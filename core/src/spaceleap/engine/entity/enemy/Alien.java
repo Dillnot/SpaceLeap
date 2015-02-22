@@ -138,4 +138,14 @@ public class Alien {
 		this.me = new Sprite(specialTex);
 		
 	}
+	
+	//Allows for resetting the alien position
+	public void setX(int realX) {
+		this.x = realX;
+		me.setPosition(x, y);	
+	}
+	public void setY(int posY) {
+		this.y = posY;
+		me.setPosition(x,y);
+	}
 }

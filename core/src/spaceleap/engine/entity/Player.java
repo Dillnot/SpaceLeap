@@ -71,7 +71,7 @@ public class Player {
 	 */
 	public boolean kill() {
 		lives -= 1;
-		if (lives < 0) {
+		if (lives < 1) {
 			return false;
 		} else {
 			return true;

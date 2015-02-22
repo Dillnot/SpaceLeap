@@ -1,10 +1,7 @@
 package spaceleap.engine.screen;
 
-import java.util.ArrayList;
-import java.util.Random;
 
 import sapceleap.game.SpaceLeapGame;
-import spaceleap.engine.entity.Bullet;
 import spaceleap.engine.entity.Player;
 import spaceleap.engine.entity.enemy.Alien;
 import spaceleap.engine.entity.enemy.Alien.AlienType;
@@ -69,7 +66,9 @@ public class GameScreen implements Screen {
 			}
 			posX = (game.VIEWPORT_WIDTH - 470) / 2;
 			posY -= 35;
-		}
+		}	
+		
+		resetAliens();
 		c.addListener(l);
 	}
 
@@ -261,20 +260,54 @@ public class GameScreen implements Screen {
 					aliens[x][y].moveX();
 				}
 			}
+			
+			if (aliens[4][9].getPosition()[1] <= 50)
+			{
+				if(!player.kill()) 
+				{ 
+					game.setScreen(new GameOverScreen(game, player.getScore()));
+				}
+				resetAliens();
+			}
 		}
 
 		// Every 20 draws, we move the aliens a set amount
-		if (count % 40 == 0) {
+		//if (count % 20 == 0) {
 			//System.out.println(count);
 			for (int x = 0; x < 5; ++x) {
 				for (int y = 0; y < 10; ++y) {
 					aliens[x][y].moveX();
 				}
 			}
-		}
+		//}
 		
 		sa.moveX();
 
+	}
+
+	//Resets the position of Aliens in the game
+	//////////////////////////////////////////////////
+		
+	//TODO : MAKE THIS JUST CHANGE THE POSITION OF ALIENS, NOT CREATE A NEW LOT
+	
+	///////////////////////////////////////////////////////
+	
+	
+	private void resetAliens() {
+		int posX = (game.VIEWPORT_WIDTH - 470) / 2;
+		int posY = 400;
+
+		// Create new Array of Aliens :)
+		for (int x = 0; x < 5; ++x) {
+			for (int y = 0; y < 10; ++y) {
+				int realX = posX + 15;
+				aliens[x][y].setX(realX);
+				aliens[x][y].setY(posY);
+				posX += 32 + 15;
+			}
+			posX = (game.VIEWPORT_WIDTH - 470) / 2;
+			posY -= 35;
+		}	
 	}
 
 	/*

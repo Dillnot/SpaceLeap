@@ -7,7 +7,7 @@ package spaceleap.engine.entity.enemy;
  */
 public class SpecialAlien extends Alien {
 
-	private final static short maxY = 450;
+	private final static short maxY = 425;
 	
 	public SpecialAlien(AlienType type, int x, int y) {
 		super(type, 650, maxY);
