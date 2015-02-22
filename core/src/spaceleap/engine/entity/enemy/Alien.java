@@ -20,21 +20,22 @@ public class Alien {
 	 *
 	 */
 	public enum AlienType {
-		ORANGE, PURPLE,
+		ORANGE, PURPLE, SPECIAL
 	};
 
 	// Private fixed textures for the aliens
 	private static final Texture orangeTex = new Texture("alien1.png");
 	private static final Texture purpleTex = new Texture("alien2.png");
+	private static final Texture specialTex = new Texture("alienBonus.png");
 	private static final Texture deadTex = new Texture("dead.png");
 
 	// Local properties
-	private Sprite me;
-	private int x = 0;
-	private int y = 0;
+	public Sprite me;
+	public int x = 0;
+	public int y = 0;
 	private boolean isDead = false;
-	private static boolean goLeft = false;
-	private int score = 50;
+	protected static boolean goLeft = false;
+	protected int score = 50;
 
 	/**
 	 * Create new enemy type
@@ -51,6 +52,8 @@ public class Alien {
 			this.me = new Sprite(orangeTex);
 		} else if (type == AlienType.PURPLE) {
 			this.me = new Sprite(purpleTex);
+		} else if (type == AlienType.SPECIAL) {
+			this.me = new Sprite(specialTex);
 		} else {
 			System.out.println("Error creating alien");
 		}
@@ -126,5 +129,13 @@ public class Alien {
 	 */
 	public void draw(Batch b) {
 		this.me.draw(b);
+	}
+	
+	/**
+	 * Reset Texture to Special Alien
+	 */
+	protected void resetTex() {
+		this.me = new Sprite(specialTex);
+		
 	}
 }
