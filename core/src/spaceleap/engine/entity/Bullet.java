@@ -17,40 +17,40 @@ public class Bullet {
 		this.x = x;
 		this.y = y;
 		this.alien = false;
-		me.setPosition(x,y);
+		this.me.setPosition(x,y);
 	}
 	public Bullet(int x, int y ,boolean al){
 		this.x = x;
 		this.y = y;
 		this.alien = al;
-		me.setPosition(x,y);
+		this.me.setPosition(x,y);
 	}
 
 	/**
 	 * @return position as an array form [x,y]
 	 */
 	public int[] getPosition() {
-		int[] p = { x, y };
+		int[] p = { this.x, this.y };
 		return p;
 	}
 
 	public boolean move() {
-		if (alien){
-			y -= moveSpeed;
+		if (this.alien){
+			this.y -= moveSpeed;
 		} else{
-			y += moveSpeed;
+			this.y += moveSpeed;
 		}
 
-		if (y > 480 || y < 0){
+		if (this.y > 480 || this.y < 0){
 			return false;
 		}else {
-			me.setY(y);
+			this.me.setY(y);
 			return true;
   		}
 	}
 
 	// Draws Bullet to screen
 	public void draw(Batch b) {
-		me.draw(b);
+		this.me.draw(b);
 	}
 }

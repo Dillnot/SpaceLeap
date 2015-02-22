@@ -147,7 +147,6 @@ public class GameScreen implements Screen {
 		{
 			if(!b.move()) { old.add(b); }
 			else { b.draw(batch); }
-		}
 		for(Bullet b: old) { alienBullets.remove(b); }
 		
 		
