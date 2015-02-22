@@ -92,6 +92,7 @@ public class GameScreen implements Screen {
 		update();
 		draw();
 		checkCollision();
+		alienShooting();
 	}
 
 	private void draw() {
@@ -121,15 +122,26 @@ public class GameScreen implements Screen {
 			// Check if bullet is off the screen, if so we just remove it by
 			// added 0 to the score, else draw it
 			if (!player.getBullet().move()) {
-				player.updateScore(0);
+				
 			} else {
 				player.getBullet().draw(batch);
 			}
 		}
+
+		ArrayList<Bullet> remove = new ArrayList<Bullet>();
+		for (Bullet b : aliensBullets) {
+			if(!b.move()){
+				remove.add(b);
 		
+			}else{
+				b.draw(batch);
+			}
+		}
+		for (Bullet b : remove) {
+			aliensBullets.remove(b);
+
 		//Drawing the special alien
 		sa.draw(batch);
-
 		batch.end();
 
 		count += 1;
@@ -170,7 +182,7 @@ public class GameScreen implements Screen {
 
 	}
 
-	// Checks if the player's bullet collides with any of the aliens 
+	// Checks if the player's bullet collides with any of the aliens
 	// Also checks collision with enemy bullets
 	private void checkCollision() {
 
@@ -215,10 +227,28 @@ public class GameScreen implements Screen {
 		//}
 	}
 
-	//Moves Aliens around the screen
+	// Generates bullets for aliens
+	private void alienShooting(){
+		// Calculate possible shot location
+		ArrayList<int[]> possShotLocations = new ArrayList<int[]>();
+		for (int x = 4; x >= 0; x--) {
+			for (int y = 0; y < 10; y++) {
+				if (!(aliens[x][y].isDead())) {
+					possShotLocations.add(aliens[x][y].getPosition());
+					}
+				}
+			}
+		if(aliensBullets.isEmpty())	{	
+			
+			Bullet b = new Bullet(possShotLocations.get(0)[0] , possShotLocations.get(0)[1], true);
+			aliensBullets.add(b);
+		}
+	}
+
+	// Moves Aliens around the screen
 	private void moveAliens() {
-		
-		//Moves Aliens down a row
+
+		// Moves Aliens down a row
 		if (aliens[0][9].getPosition()[0] >= 600
 				|| aliens[0][0].getPosition()[0] <= 0) {
 			aliens[0][0].switchGoLeft();
@@ -239,9 +269,9 @@ public class GameScreen implements Screen {
 			}
 		}
 
-		//Every 20 draws, we move the aliens a set amount
+		// Every 20 draws, we move the aliens a set amount
 		//if (count % 20 == 0) {
-			System.out.println(count);
+			//System.out.println(count);
 			for (int x = 0; x < 5; ++x) {
 				for (int y = 0; y < 10; ++y) {
 					aliens[x][y].moveX();
