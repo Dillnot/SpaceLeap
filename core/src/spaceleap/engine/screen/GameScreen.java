@@ -90,76 +90,70 @@ public class GameScreen implements Screen {
 	private void draw() {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		if (killcount == 50) { game.setScreen(new GameOverScreen(game));} 
 
-		//Start draw and draw player
+		if (killcount == 50) {
+			game.setScreen(new GameOverScreen(game, player.getScore()));
+		}
+
+		// Start draw and draw player
 		batch.begin();
 		player.draw(batch);
-		
-		
-		if (aliens[0][9].getPosition()[0] > 600 || aliens[0][0].getPosition()[0] < 0){
+
+		if (aliens[0][9].getPosition()[0] > 600
+				|| aliens[0][0].getPosition()[0] < 0) {
 			aliens[0][0].switchGoLeft();
 			for (int x = 0; x < 5; ++x) {
 				for (int y = 0; y < 10; ++y) {
 					aliens[x][y].moveY();
 				}
 			}
-			
+
 		}
 
-		//Draw all the aliens
+		// Draw all the aliens
 		for (int x = 0; x < 5; ++x) {
 			for (int y = 0; y < 10; ++y) {
 				aliens[x][y].moveX();
 			}
 		}
-		
+
 		for (int x = 0; x < 5; ++x) {
 			for (int y = 0; y < 10; ++y) {
 				aliens[x][y].draw(batch);
 			}
 		}
-		
-		//Add Bullet, if it exists
-		if (player.getBullet() != null) 
-		{
-			//Check if bullet is off the screen, if so we just remove it by added 0 to the score, else draw it
-			if(!player.getBullet().move()) 
-			{
+
+		// Add Bullet, if it exists
+		if (player.getBullet() != null) {
+			// Check if bullet is off the screen, if so we just remove it by
+			// added 0 to the score, else draw it
+			if (!player.getBullet().move()) {
 				player.updateScore(0);
-			}
-			else {
+			} else {
 				player.getBullet().draw(batch);
 			}
-		} 
+		}
 
 		batch.end();
 
 	}
 
 	private void update() {
-	
+
 		// Handles Input from Keyboard
 		if (game.INPUT_MODE.compareTo("KEYBOARD") == 0) {
 
 			// Check user input
 			if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-				if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
-					direction = -2;
-				else
 					direction = -1;
 			} else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-				if (Gdx.input.isKeyPressed(Input.Keys.CONTROL_LEFT))
-					direction = 2;
-				else
 					direction = 1;
 			} else {
 				direction = 0;
 			}
 
 			// Check for fire
-            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+			if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 				player.fire();
 			}
 		}
@@ -175,23 +169,24 @@ public class GameScreen implements Screen {
 		player.setX(direction);
 	}
 
+	// Checks if the player's bullet collides with any of the aliens
 	private void checkCollision() {
 
 		if (player.getBullet() != null) {
 			for (Alien[] x : aliens) {
 				for (Alien y : x) {
-					if (!(y.isDead()))
-					{	
+					if (!(y.isDead())) {
 						int bx = player.getBullet().getPosition()[0];
-					    int by = player.getBullet().getPosition()[1];
-					    
-					    if ((bx >= y.getPosition()[0] && bx <= y.getPosition()[0] + 32) && (by >= y.getPosition()[1] && by <= y.getPosition()[1] + 32))
-						{
-					    	y.kill();
-						    player.updateScore(y.getScore());
-						    killcount += 1;
-						    System.out.println(killcount);
-						    return;
+						int by = player.getBullet().getPosition()[1];
+
+						if ((bx >= y.getPosition()[0] && bx <= y.getPosition()[0] + 32)
+								&& (by >= y.getPosition()[1] && by <= y
+										.getPosition()[1] + 32)) {
+							y.kill();
+							player.updateScore(y.getScore());
+							killcount += 1;
+							System.out.println(killcount);
+							return;
 						}
 					}
 				}

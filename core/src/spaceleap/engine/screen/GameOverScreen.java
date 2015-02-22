@@ -9,10 +9,12 @@ import com.badlogic.gdx.graphics.GL20;
 public class GameOverScreen implements Screen {
 
 	final SpaceLeapGame game;
+	private int score;
 	
-	public GameOverScreen(SpaceLeapGame game)
+	public GameOverScreen(SpaceLeapGame game, int score)
 	{
-		this.game = game;		
+		this.game = game;
+		this.score = score;
 	}
 	
 	
@@ -28,7 +30,8 @@ public class GameOverScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		game.batch.begin();
-		game.font.draw(game.batch, "You win!", 300,300);
+		game.font.draw(game.batch, "Game Over!", 300,300);
+		game.font.draw(game.batch, "Score:" + score, 300, 270);
 		game.batch.end();
 	}
 

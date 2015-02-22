@@ -42,11 +42,6 @@ public class Player {
 	 */
 	public void setX(int direction) {
 		switch (direction) {
-		case -2: {
-			if (x - 6.0f >= 0)
-				x -= 6f;
-			break;
-		}
 		case -1: {
 			if (x - 3f >= 0)
 				x -= 3f;
@@ -55,11 +50,6 @@ public class Player {
 		case 1: {
 			if (x + 3f <= 640 - 32)
 				x += 3.0f;
-			break;
-		}
-		case 2: {
-			if (x + 6f <= 640 - 32)
-				x += 6.0f;
 			break;
 		}
 		}
@@ -93,7 +83,7 @@ public class Player {
 	 */
 	public void fire() {
 		if (bullet == null) {
-			bullet = new Bullet(x + 16,y);
+			bullet = new Bullet(x + 16, y);
 		}
 	}
 
@@ -133,5 +123,5 @@ public class Player {
 	public Bullet getBullet() {
 		return this.bullet;
 	}
-	
+
 }
