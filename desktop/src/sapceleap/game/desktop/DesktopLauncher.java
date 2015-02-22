@@ -13,7 +13,7 @@ public class DesktopLauncher {
 		config.width = 640;
 		config.height = 480;
 		config.title = "SpaceHeap";
-		config.addIcon("C:/Users/Ewan/Documents/Hackathon/SpaceLeap/core/assets/logo.png", FileType.Absolute);
+		//config.addIcon("C:/Users/Ewan/Documents/Hackathon/SpaceLeap/core/assets/logo.png", FileType.Absolute);
 		new LwjglApplication(new SpaceLeapGame(), config);
 	}
 }

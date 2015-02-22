@@ -2,6 +2,7 @@ package spaceleap.engine.screen;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.Random;
 
 import sapceleap.game.SpaceLeapGame;
 import spaceleap.engine.entity.Bullet;
@@ -29,7 +30,7 @@ public class GameScreen implements Screen {
 	private Texture img;
 	private Player player;
 	Alien[][] aliens;
-	Bullet[] aliensBullets;
+	ArrayList<Bullet> aliensBullets = new ArrayList<Bullet>();
 
 	private Controller c = new Controller();
 	private LeapListener l = new LeapListener();
@@ -150,13 +151,12 @@ public class GameScreen implements Screen {
 				}
 			}
 		}
-		// cut off all empty shot conditions
-		int[] p = { 0, 0 };
-		for (int x = 0; x < 10; x++) {
-			if (possShotLocations.get(x) == p) {
-				possShotLocations.remove(x);
-			}
-		}
+		
+		Random ran = new Random();
+		
+		int[] p = possShotLocations.get(ran.nextInt(possShotLocations.size()));
+		Bullet b = new Bullet(p[0] , p[1], true);
+		aliensBullets.add(b);
 
 		batch.end();
 		
