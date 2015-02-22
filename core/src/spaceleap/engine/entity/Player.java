@@ -129,5 +129,15 @@ public class Player {
 	 * @return
 	 */
 	public int getLives() { return this.lives; }
+	
+	/**
+	 * Returns player position
+	 * @return
+	 */
+	public int[] getPosition()
+	{
+		int[] pos = {x,y};
+		return pos;
+	}
 
 }

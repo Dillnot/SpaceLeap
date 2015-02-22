@@ -8,6 +8,7 @@ import spaceleap.engine.entity.Bullet;
 import spaceleap.engine.entity.Player;
 import spaceleap.engine.entity.enemy.Alien;
 import spaceleap.engine.entity.enemy.Alien.AlienType;
+import spaceleap.engine.entity.enemy.SpecialAlien;
 import spaceleap.engine.input.LeapListener;
 
 import com.badlogic.gdx.Gdx;
@@ -29,7 +30,7 @@ public class GameScreen implements Screen {
 	private Texture img;
 	private Player player;
 	Alien[][] aliens;
-	ArrayList<Bullet> aliensBullets = new ArrayList<Bullet>();
+	SpecialAlien sa = new SpecialAlien(AlienType.SPECIAL,0,0); //Just given 0,0 as the location is set within constructor
 
 	private Controller c = new Controller();
 	private LeapListener l = new LeapListener();
@@ -126,24 +127,9 @@ public class GameScreen implements Screen {
 				player.getBullet().draw(batch);
 			}
 		}
-		// Calculate possible shot location
-		ArrayList<int[]> possShotLocations = new ArrayList<int[]>();
-		int c = 0;
-		for (int x = 4; x >= 0; --x) {
-			for (int y = 0; y < 10; ++y) {
-				if (!(aliens[x][y].isDead())) {
-					int[] p = { x, y };
-					possShotLocations.add(p);
-					c++;
-				}
-			}
-		}
 		
-		Random ran = new Random();
-		
-		int[] p = possShotLocations.get(ran.nextInt(possShotLocations.size()));
-		Bullet b = new Bullet(p[0] , p[1], true);
-		aliensBullets.add(b);
+		//Drawing the special alien
+		sa.draw(batch);
 
 		batch.end();
 
@@ -181,6 +167,8 @@ public class GameScreen implements Screen {
 		player.setX(direction);
 
 		moveAliens();
+		
+
 	}
 
 	// Checks if the player's bullet collides with any of the aliens 
@@ -206,6 +194,26 @@ public class GameScreen implements Screen {
 				}
 			}
 		}
+		
+		
+		//for(Bullet b : aliensBullets)
+		//{
+		//	int bx = b.getPosition()[0];
+		//	int by = b.getPosition()[1];
+		//	
+		//	if ((bx >= player.getPosition()[0] && bx <= player.getPosition()[0] + 32) && (by >= player.getPosition()[1] && by <= player.getPosition()[1] + 32))
+		//	{
+		//		//Remove a players life and check if they are dead.
+		//		if(!player.kill()) 
+		//		{
+		//			//aliensBullets.clear();
+		//			break;
+		//		}
+		//		//Player is dead :(
+		//		else { game.setScreen(new GameOverScreen(game, player.getScore()));
+		//		}
+		//	}
+		//}
 	}
 
 	//Moves Aliens around the screen
@@ -232,6 +240,8 @@ public class GameScreen implements Screen {
 				}
 			}
 		}
+		
+		sa.moveX();
 
 	}
 

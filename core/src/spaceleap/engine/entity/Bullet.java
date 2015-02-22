@@ -35,7 +35,7 @@ public class Bullet {
 
 	public boolean move() {
 		if (alien){
-		y -= moveSpeed;
+		 y -= moveSpeed;
 		} else{
 			y += moveSpeed;
 		}
