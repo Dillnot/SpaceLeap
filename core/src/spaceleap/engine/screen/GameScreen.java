@@ -161,8 +161,6 @@ public class GameScreen implements Screen {
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 				player.fire();
 			}
-            
-            if (Gdx.input.isKeyJustPressed(Input.Keys.BACKSPACE)) { killcount = 49;  }
 		}
 
 		else {
