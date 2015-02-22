@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class explode {
+public class Explode {
 	
 	private int x;
 	private int y;
@@ -19,7 +19,7 @@ public class explode {
 	private TextureRegion currentFrame;
 	
 
-	public explode(int x, int y) {
+	public Explode(int x, int y) {
 		this.x=x;
 		this.y=y;
 		sheet = new Texture("explosions.png"); // #9
